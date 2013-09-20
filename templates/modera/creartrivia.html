@@ -1,0 +1,101 @@
+{% endblock %}
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Moderador</a></h1>
+                <h2 class="section_title">Trivias</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador: Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Trivias</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+           <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_settings"><a href="index.html">Tiempo real</a></li>
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>    
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li>               
+            </ul>
+            
+           <h3>Preguntas</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearencuesta.html">Crear encuesta</a></li>
+                <li class="icn_new_article"><a href="crearpregunta.html">Crear pregunta</a></li>
+                <li class="icn_categories"><a href="listarpreguntas.html">Listar preguntas</a></li>
+                <li class="icn_new_article"><a href="crearalternativa.html">Crear alternativa</a></li>                
+                <li class="icn_categories"><a href="listaralternativas.html">Listar alternativas</a></li>
+            </ul> 
+            
+            <h3>Sorteos</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearsorteo.html">Crear sorteo</a></li>	
+                <li class="icn_categories"><a href="listarsorteos.html">Listar sorteos</a></li>	
+            </ul>  
+
+            <h3>Trivias</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="creartrivia.html">Crear trivia</a></li>
+                <li class="icn_categories"><a href="listartrivias.html">Listar trivias</a></li>
+                <li class="icn_settings"><a href="ganadortrivia.html">Ver ganador de trivia</a></li>
+            </ul>    
+
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">
+
+        <article class="module width_full">
+            <header>
+                <h3>Crear trivia</h3>
+            </header>
+            <div class="module_content">
+                              
+                <fieldset style="width:30%; float:left; margin-right: 10px; height: 50px;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                    <label>Evento</label>
+                    <select style="width:80%;">
+                        <option>Elija evento</option>
+                        <option>HTML5 y CSS3</option>
+                        <option>Cómo vender a un escéptico</option>
+                    </select>                    
+                </fieldset>
+                <fieldset style="float:left; width: 450px;">
+                    <label>Trivia</label>
+                    <input type="text" style="width:90%;" />
+                </fieldset>  
+                <div class="clear"></div>
+            </div>
+                <footer>
+                    <div class="submit_link" style="text-align: center;">
+                        <input type="submit" value="Guardar" class="alt_btn">
+                        <input type="submit" value="Cancelar">
+                    </div>
+                </footer>
+            </article><!-- end of post new article -->
+
+            <div class="spacer"></div>
+        </section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{%block sidebar%} 
+	<ul class="dropdown-menu">
+	  <li><a href="/all">Explorar</a></li>
+	  <li><a href="#">Evento Activo I.</a></li>
+	  <li><a href="#">Mis Entradas</a></li>
+	  <li><a href="#">Separated link</a></li>
+	  <li><a href="#">One more separated link</a></li>
+	</ul>
+{% endblock%}
+
+
+
+{% block contenido %}
+	
+	<h1>{{event.name}}</h1>
+	<p>{{event.description}}</p>
+
+{% endblock %}

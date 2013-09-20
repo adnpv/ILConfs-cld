@@ -1,0 +1,250 @@
+
+
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Moderador</a></h1>
+                <h2 class="section_title">Participantes</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador: John Doe</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Lista de sorteos</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+        <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_categories"><a href="index.html">Lista de eventos</a></li> 
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li> 
+            </ul>
+            
+             <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_categories"><a href="listarpreguntas.html">Preguntas del expositor</a></li>               
+                <li class="icn_categories"><a href="listarpreguntasdelpublico.html">Preguntas del público</a></li>               
+            </ul>  
+             
+           <h3>Encuesta</h3>            
+            <ul class="toggle">  
+                <li class="icn_new_article"><a href="encuesta.html">Encuesta</a></li>        
+            </ul>
+            
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">            
+            <header><br />
+           <h3 class="tabs_involved">HTML5 y CSS3</h3>  
+            </header>
+        <article class="module width_3_quarter">
+        <header>
+        <div class="submit_link" style="float: left; padding: 2px auto;">
+            <h3 class="tabs_involved">Participantes</h3>
+        </div>              
+         <div class="submit_link2">
+            <form class="post_message"> 
+                <ul id="ulrdbtn">                        
+                   <li><input type="text" style="width:90%;"></li>               
+                   <li><input type="submit" value="Buscar" class="alt_btn">  </li> 
+                </ul>  
+            </form>
+         </div>
+     </header>  
+           
+        <div class="tab_container" style="margin: 0 auto;">
+            <div id="tab1" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr>  
+                            <th>Codigo</th>  
+                            <th>Apellidos</th> 
+                            <th>Nombres</th>                            
+                            <th>Acciones</th>
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr>  
+                            <td>3543</td> 
+                            <td>Lorem Ipsum </td>                             
+                            <td>Dolor Sit Amet</td>                           
+                            <td><input type="image" src="../static/images/prohibido.jpg" title="Bloquear" width="17" height="17"/></td>
+                        </tr> 
+                        <tr>                             
+                            <td>3544</td> 
+                            <td>Delgado Rosas</td>                             
+                            <td>Maria Silva</td>                         
+                            <td><input type="image" src="../static/images/activar.gif" title="Activar"/></td> 
+                        </tr>
+                        <tr>                             
+                            <td>3545</td> 
+                            <td>Moran Roman</td>                             
+                            <td>Sandro Dario</td>                             
+                            <td><input type="image" src="../static/images/prohibido.jpg" title="Bloquear" width="17" height="17"/></td>
+                        </tr> 
+                        <tr>                             
+                            <td>3546</td> 
+                            <td>Campos Coronado</td>                             
+                            <td>Fernando Arturo</td>                            
+                            <td><input type="image" src="../static/images/activar.gif" title="Activar"/></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3547</td> 
+                            <td>Alva Moreno</td>                             
+                            <td>Gina Valeria</td>                             
+                            <td><input type="image" src="../static/images/prohibido.jpg" title="Bloquear" width="17" height="17"/></td>
+                        </tr> 
+                    </tbody> 
+                </table>
+                <footer>
+                    
+                </footer>
+            </div><!-- end of #tab1 -->
+
+            <div id="tab2" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr>  
+                            <th>Codigo</th>  
+                            <th>Evento</th> 
+                            <th>Expositor</th> 
+                            <th>Fecha de inicio</th> 
+                            <th>Fecha de fin</th>
+                            <th>Hora de inicio</th> 
+                            <th>Hora de fin</th>
+                            <th>Lugar</th> 
+                            <th>Estado</th>
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr>  
+                            <td>23865</td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2013</td> 
+                            <td>5th April 2013</td>
+                            <td>9.00</td>
+                            <td>15.00</td>
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Finalizado</td> 
+                            <td/><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>23865</td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2013</td> 
+                            <td>5th April 2013</td>
+                            <td>9.00</td>
+                            <td>15.00</td>
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Finalizado</td> 
+                            <td/><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr>
+                        <tr>                             
+                            <td>23865</td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2013</td> 
+                            <td>5th April 2013</td>
+                            <td>9.00</td>
+                            <td>15.00</td>
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Finalizado</td> 
+                            <td/><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>23865</td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2013</td> 
+                            <td>5th April 2013</td>
+                            <td>9.00</td>
+                            <td>15.00</td>
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Finalizado</td> 
+                            <td/><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>23865</td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2013</td> 
+                            <td>5th April 2013</td>
+                            <td>9.00</td>
+                            <td>15.00</td>
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Finalizado</td> 
+                            <td/><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                    </tbody> 
+                </table>
+            </div><!-- end of #tab2 -->			
+        </div><!-- end of .tab_container -->		
+    </article><!-- end of content manager article -->
+    
+    <article class="module width_quarter">
+        <header>
+            <h3>Conectados (28)</h3>
+        </header>
+        <div class="message_list">
+            <div class="module_content">
+                <div class="message">
+                    <p>Angela Muñoz</p>                    
+                </div>
+                <div class="message">
+                    <p>Patricia Aldana</p>                    
+                </div>
+                <div class="message">
+                    <p>Enrique Arias</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre Apellido</p>                    
+                </div>
+                <div class="message">
+                    <p>Rolf Cortes</p>                    
+                </div>
+                <div class="message">
+                    <p>Adrian Peralta</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+            </div>
+        </div>
+        <footer>
+           <form class="post_message">
+                <input type="text" value="Message" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+                <input type="submit" class="btn_post_message" value="Buscar"/>
+	   </form>
+        </footer>
+    </article><!-- end of messages article -->
+        <div class="spacer"></div>
+        </section>   
+{% endblock %}

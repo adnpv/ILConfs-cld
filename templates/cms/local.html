@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+<!--
+{# <html>
+<body>
+	<h1>Articles</h1> #}
+-->
+
+
+
+{% block login %}
+
+<ul class="nav navbar-nav">
+	<li><a href="#"><img src="{% static "images/user.jpg" %}" alt="<user img>" />User n</a></li>
+  	<li><a href="#">Crear Evento</a></li>
+  	<li><a href="#">Salir</a></li>
+</ul>
+{% endblock %}
+
+{% block topinfo %}
+
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container sub">
+	<!-- Example row of columns -->
+	<div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h2>Anuncios</h2>
+            <ul>
+                <li> > evento Iniciado</li>
+                <li> > Ahora puede comprar sus entradas para el evento que marco</li>
+            </ul>
+            
+          </div>
+          <div class="row">
+				<h2>Proximos</h2>
+
+
+	{% if events.count > 0 %}
+		{% for event in events %}
+		
+		        <div class="col-6 col-sm-6 col-lg-4">
+					<div class="well">
+		          		<h4 class="text-center">
+		          			<i class="icon-fullscreen"></i> 
+		          			{{event.name}}</h4>
+
+						<p>{{ event.description | lower | truncatewords:"10" }}</p>
+
+						<p><a class="btn btn-primary" href="/get/{{event.id}}">View details »</a>
+						</p>
+				  </div>
+		        </div>
+			
+		<!-- CONTAINER-->
+		{% endfor %}
+	{% else %}
+		<p>None to show!</p>
+	{% endif %} 
+          </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <div class="well sidebar-nav">
+            <h3>Crear Evento</h3>
+         
+        	<form class="form" action="/home/newev/">
+		        <input type="text" class="form-control" placeholder="Nombre" autofocus>
+		        <br>
+		        <input type="text" class="form-control" placeholder="Lugar" >
+		        <p><Maps></p>
+		        <input type="text" class="form-control" placeholder="tema" >
+		        <br>
+		        <button class="btn btn-lg btn-primary btn-block" type="submit">Crear</button>
+		      </form>
+           
+          </div><!--/.well -->
+
+          <div class="well sidebar-nav">
+            <h3>Calendario/entradas</h3>
+			<!--
+				<div class="panel panel-default">
+					<div class="panel-body">
+						
+					</div>
+				</div>-->
+				
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#home" data-toggle="tab">Cal</a></li>
+							<li><a href="#profile" data-toggle="tab">Entradas</a></li>
+			
+						</ul>
+						<div id="myTabContent" class="tab-content">
+						<div class="tab-pane fade in active" id="home">
+							<div class="row">
+								<div class="col-xs-4 col-sm-4 col-lg-4 text-center">
+									<div class="thumbnail" style="">
+										<img src="http://lorempixel.com/260/195/technics/1" class="img-responsive" alt="">
+									</div>
+								</div>
+								<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+								<a class="" href="http://www.bootstraptor.com"><h5>Ruby Perú</h5></a>
+
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-4 col-sm-4 col-lg-4 text-center">
+									<div class="thumbnail" style="">
+										<img src="http://lorempixel.com/260/195/technics/1" class="img-responsive" alt="">
+									</div>
+								</div>
+								<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+								<a class="" href="http://www.bootstraptor.com"><h5>Startup Weekend</h5></a>
+
+								</div>
+							</div>
+					
+					
+						</div>
+						<div class="tab-pane fade widget-tags" id="profile">
+							<div class="list-group">
+								<a href="#" class="list-group-item active">Simposio <span class="badge">134</span></a>
+								<a href="#" class="list-group-item">Ruby Perú</a>
+								<a href="#" class="list-group-item">Startup Weekend</a>
+								<a href="#" class="list-group-item">Anual Forum<span class="badge">14</span></a>
+								<a href="#" class="list-group-item">Agile Lima</a>
+							</div>
+						  
+						</div>
+					  </div>
+					</div>
+				</div>
+
+
+          </div><!--/.well -->
+
+          <div class="well sidebar-nav">
+            <h3>Socios Estrategicos</h3>
+            <ul class="nav">
+              <li>Socios Estrategicos</li>
+            </ul>
+          </div><!--/.well -->
+
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+
+</div>
+
+{% endblock %}
+
+
+
+<!--
+	</body>
+</html>
+-->
+

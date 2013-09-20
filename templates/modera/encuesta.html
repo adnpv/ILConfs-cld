@@ -1,0 +1,90 @@
+
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">PIT Real</a></h1>
+                <h2 class="section_title">Encuesta</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Reporte de evento</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+           <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_categories"><a href="index.html">Lista de eventos</a></li> 
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li> 
+            </ul>
+                        
+             <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_categories"><a href="listarpreguntas.html">Preguntas del expositor</a></li>               
+                <li class="icn_categories"><a href="listarpreguntasdelpublico.html">Preguntas del público</a></li>               
+            </ul> 
+                        
+           <h3>Encuesta</h3>            
+            <ul class="toggle">  
+                <li class="icn_new_article"><a href="encuesta.html">Encuesta</a></li>        
+            </ul>
+           
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">
+             <header><br />
+                <h3 class="tabs_involved">HTML5 y CSS3</h3>  
+            </header>
+            <article class="module width_full">
+            <header>
+                <h3>Encuesta</h3>
+            </header>
+            <div class="module_content">              
+                <h2>¿Cual es su opinión del evento?</h2>
+                <ol>
+                    <li style="font-size: 16px">Excelente</li>
+                    <li style="font-size: 16px">Bueno</li>
+                    <li style="font-size: 16px">Regular</li>
+                    <li style="font-size: 16px">Malo</li>
+                    <li style="font-size: 16px">Pesimo</li>
+                </ol>            
+                <div class="clear"></div>
+            </div>
+            <footer>                  
+               <div class="submit_link" style="padding: 5px 340px;">
+                   <ul id="ulrdbtn">                     
+                       <li><input type="submit" value="Activar" class="alt_btn"></li>
+                       <li>&nbsp;</li>                      
+                   </ul>                                  
+		</div>
+            </footer>
+            </article><!-- end of post new article -->
+            <div class="clear"></div>        
+            
+            <div class="spacer"></div>
+        </section>
+{% endblock %}

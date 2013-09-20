@@ -1,0 +1,143 @@
+
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Moderador</a></h1>
+                <h2 class="section_title">Estadísticas de pregunta</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador: Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Estadísticas de pregunta</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+          <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_settings"><a href="index.html">Tiempo real</a></li>
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>    
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li>               
+            </ul>
+            
+            <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_new_article"><a href="crearpregunta.html">Crear pregunta</a></li>
+                <li class="icn_categories"><a href="listarpreguntas.html">Listar preguntas</a></li>
+                <li class="icn_new_article"><a href="crearalternativa.html">Crear alternativa</a></li>                
+                <li class="icn_categories"><a href="listaralternativas.html">Listar alternativas</a></li>
+            </ul> 
+         
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">            
+           
+        <article class="module width_3_quarter">
+            <header>
+                <h3 class="tabs_involved">Estadísticas de pregunta</h3>
+            </header>
+
+            <div class="tab_container" style="margin: 0 auto;">	
+                <div class="module_content">
+                    <br />
+                    <h1>Pregunta</h1>
+                    <br />
+                    <h2>¿En cuánto tiempo tiene planeado utilizar HTML5 y CSS3?</h2>
+                    <br />
+                    <ol>
+                        <li><h4>Hasta en cuatro meses </h4></li>
+                        <li><h4>Entre cuatro a ocho  meses</h4></li>
+                        <li><h4>Entre ocho a doce  meses</h4></li>
+                        <li><h4>Más de doce  meses</h4></li>
+                    </ol>
+                </div>
+            </div><!-- end of .tab_container -->	
+            <br /><br />
+    </article><!-- end of content manager article -->  
+    
+    <article class="module width_quarter">
+        <header>
+            <h3>Conectados (28)</h3>
+        </header>
+        <div class="message_list">
+            <div class="module_content">
+                <div class="message">
+                    <p>Angela Muñoz</p>                    
+                </div>
+                <div class="message">
+                    <p>Patricia Aldana</p>                    
+                </div>
+                <div class="message">
+                    <p>Enrique Arias</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre Apellido</p>                    
+                </div>
+                <div class="message">
+                    <p>Rolf Cortes</p>                    
+                </div>
+                <div class="message">
+                    <p>Adrian Peralta</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+            </div>
+        </div>
+        <footer>
+           <form class="post_message">
+                <input type="text" value="Nombre" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+                <input type="submit" class="btn_post_message" value="Buscar"/>
+	   </form>
+        </footer>
+    </article><!-- end of messages article -->
+    <article class="module width_3_quarter">
+        <header><h3>Resultados</h3></header>
+        <div class="module_content">
+            <figure style="text-align: center;">
+                <img src="../static/images/pastel.png" width="320" height="280"/>
+                <figcaption>
+                    Total de votos: 86
+                </figcaption>
+            </figure>            
+        </div>
+    </article><!-- end of stats article -->
+    <br><br>
+     <article class="module width_quarter">
+         <br />
+         <div class="tab_container" style="margin: 0 auto;">	
+            <div class="module_content">
+                <p style="text-align: center; font-size: 16px;"><a href="listarpreguntas.html">Regresar</a></p>            
+          </div><!-- end of .tab_container -->	
+          <br />
+    </article>
+        <div class="clear"></div>
+        <div class="spacer"></div>
+        </section>   
+{% endblock %}

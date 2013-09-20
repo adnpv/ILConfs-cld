@@ -1,0 +1,177 @@
+
+
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">PIT Real</a></h1>
+                <h2 class="section_title">Eventos</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador: Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Tiempo Real</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+          <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_categories"><a href="index.html">Lista de eventos</a></li>         
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li> 
+            </ul>
+          
+             <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_categories"><a href="listarpreguntas.html">Preguntas del expositor</a></li>               
+                <li class="icn_categories"><a href="listarpreguntasdelpublico.html">Preguntas del público</a></li>               
+            </ul>            
+                       
+          <h3>Encuesta</h3>            
+            <ul class="toggle">  
+                <li class="icn_new_article"><a href="encuesta.html">Encuesta</a></li>        
+            </ul>
+          
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">
+
+<article class="module width_3_quarter">
+    <header>
+        <div class="submit_link" style="float: left; padding: 2px auto;">
+            <h3 class="tabs_involved">Eventos</h3>
+        </div>              
+         <div class="submit_link2">
+            <form class="post_message"> 
+                <ul id="ulrdbtn">                        
+                   <li><input type="text" style="width:90%;"></li>               
+                   <li><input type="submit" value="Buscar" class="alt_btn">  </li> 
+                </ul>  
+            </form>
+         </div>
+     </header>        
+     <div class="tab_container" style="margin: 0 auto;">            
+            <div id="tab1" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr>  
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Fecha de registro</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>  
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr>  
+                            <td>3543</td> 
+                            <td>HTML5 Y CSS3</td>  
+                            <td>2012/01/01</td>
+                            <td>Activo</td>
+                            <td><input type="image" src="../static/images/activar.gif" title="Seleccionar"/><!--<input type="image" src="../static/images/iconoinfo.jpg" title="Informacion del evento" width="17" height="17"/>--><input type="image" src="../static/images/icn_user.png" title="Participantes" width="17" height="17"/><input type="image" src="../static/images/preguntas.jpg" title="Preguntas" width="17" height="17"/></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3544</td> 
+                            <td>Bla bla bla</td>
+                            <td>2012/01/01</td>
+                            <td>Pendiente</td>
+                            <td><input type="image" src="../static/images/activar.gif" title="Seleccionar"/><!--<input type="image" src="../static/images/iconoinfo.jpg" title="Informacion del evento" width="17" height="17"/>--><input type="image" src="../static/images/icn_user.png" title="Participantes" width="17" height="17"/><input type="image" src="../static/images/preguntas.jpg" title="Preguntas" width="17" height="17"/></td> 
+                        </tr>
+                        <tr>                             
+                            <td>3545</td> 
+                            <td>Moran Roman</td> 
+                            <td>2012/01/01</td>
+                            <td>Terminado</td>
+                            <td><input type="image" src="../static/images/activar.gif" title="Seleccionar"/><!--<input type="image" src="../static/images/iconoinfo.jpg" title="Informacion del evento" width="17" height="17"/>--><input type="image" src="../static/images/icn_user.png" title="Participantes" width="17" height="17"/><input type="image" src="../static/images/preguntas.jpg" title="Preguntas" width="17" height="17"/></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3546</td> 
+                            <td>¿Esta de acuerdo con la convocatoria de Vargas?</td> 
+                            <td>2012/01/01</td>
+                            <td>Activo</td>  
+                            <td><input type="image" src="../static/images/activar.gif" title="Seleccionar"/><!--<input type="image" src="../static/images/iconoinfo.jpg" title="Informacion del evento" width="17" height="17"/>--><input type="image" src="../static/images/icn_user.png" title="Participantes" width="17" height="17"/><input type="image" src="../static/images/preguntas.jpg" title="Preguntas" width="17" height="17"/></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3547</td> 
+                            <td>¿Cree que se puede ganar a Argentina?</td>        
+                            <td>2012/01/01</td>
+                            <td>Pendiente</td>  
+                            <td><input type="image" src="../static/images/activar.gif" title="Seleccionar"/><!--<input type="image" src="../static/images/iconoinfo.jpg" title="Informacion del evento" width="17" height="17"/>--><input type="image" src="../static/images/icn_user.png" title="Participantes" width="17" height="17"/><input type="image" src="../static/images/preguntas.jpg" title="Preguntas" width="17" height="17"/></td> 
+                        </tr> 
+                    </tbody> 
+                </table>
+            </div><!-- end of #tab1 -->	
+        </div><!-- end of .tab_container -->	
+        <footer>
+            
+        </footer>
+            
+    </article><!-- end of content manager article -->
+       
+    
+    <article class="module width_quarter">
+        <header>
+            <h3>Conectados (28)</h3>
+        </header>
+        <div class="message_list">
+            <div class="module_content">
+                <div class="message">
+                    <p>Angela Muñoz</p>                    
+                </div>
+                <div class="message">
+                    <p>Patricia Aldana</p>                    
+                </div>
+                <div class="message">
+                    <p>Enrique Arias</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre Apellido</p>                    
+                </div>
+                <div class="message">
+                    <p>Rolf Cortes</p>                    
+                </div>
+                <div class="message">
+                    <p>Adrian Peralta</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>                 
+            </div>
+        </div>
+        <footer>
+           <form class="post_message">
+                <input type="text" value="Message" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+                <input type="submit" class="btn_post_message" value="Buscar"/>
+	   </form>
+        </footer>
+    </article><!-- end of messages article -->
+    <div class="clear"></div> 
+    
+        <div class="spacer"></div>
+        </section>   
+{% endblock %}

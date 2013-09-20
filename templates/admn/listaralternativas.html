@@ -1,0 +1,177 @@
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Administrador</a></h1>
+                <h2 class="section_title">Lista de alternativas</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}    
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido administrador: John Doe</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de administrador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Lista de alternativas por pregunta</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}    
+{% block sidebar %} 
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+            
+            <h3>Eventos</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearevento.html">Crear evento</a></li>
+                <li class="icn_edit_article"><a href="actualizarevento.html">Actualizar evento</a></li>
+                <li class="icn_categories"><a href="listareventos.html">Listar eventos</a></li>		
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>
+            </ul>
+            
+          <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_new_article"><a href="crearpregunta.html">Crear pregunta</a></li>
+                <li class="icn_categories"><a href="listarpreguntas.html">Listar preguntas</a></li>
+                <li class="icn_new_article"><a href="crearalternativa.html">Crear alternativa</a></li>                
+                <li class="icn_categories"><a href="listaralternativas.html">Listar alternativas</a></li>
+            </ul> 
+            
+            <h3>Encuestas</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearencuesta.html">Crear encuesta</a></li>
+            </ul>
+            
+            <h3>Usuarios</h3>
+            <ul class="toggle">
+                <li class="icn_add_user"><a href="crearusuario.html">Crear usuario</a></li>
+                <li class="icn_view_users"><a href="actualizarusuario.html">Actualizar usuario</a></li>			
+            </ul>
+
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="#">Actualizar perfil</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+
+        </aside><!-- end of sidebar -->
+{% endblock %}     
+{% block contenido %}
+            <br />   
+	
+        <article class="module width_full">
+            <header>
+                <h3>Preguntas y alternativas</h3>
+            </header>
+            <div class="module_content">
+                <fieldset style="width:48%; float:left; margin-right: 3%; margin-top: 2px;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                    <label>Pregunta</label>
+                    <select style="width:92%;">                       
+                        <option>¿En cuánto tiempo piensa migrar a HTML5?</option>
+                        <option>¿Cómo considera que se podría vender mejor?</option>
+                    </select>                    
+                </fieldset>                   
+                <fieldset style="text-align: center; height: 60%; padding: 3% 0 2% 0 ">
+                    <input type="submit" value="Ver alternativas" class="alt_btn" />  
+                </fieldset>
+                <div class="clear"></div>
+            </div>    
+        </article>
+       
+        <article class="module width_3_quarter">
+        <header>
+            <h3 class="tabs_involved">Alternativas</h3>
+        </header>
+           
+        <div class="tab_container" style="margin: 0 auto;">
+            <div id="tab1" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr>  
+                            <th>Código</th>  
+                            <th>Alternativa</th>  
+                            <th>Respuesta</th> 
+                            <th>Acciones</th>  
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr>  
+                            <td>3543</td> 
+                            <td>Lorem Ipsum </td> 
+                            <td>Sí</td>  
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3544</td> 
+                            <td>Bla bla bla</td>  
+                            <td>No</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr>
+                        <tr>                             
+                            <td>3545</td> 
+                            <td>Lpinp wefefef</td> 
+                            <td>No</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                        <tr>                             
+                            <td>3546</td> 
+                            <td>Está de acuerdo</td> 
+                            <td>No</td>
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Actualizar"/><input type="image" src="../static/images/icn_trash.png" title="Eliminar"></td> 
+                        </tr> 
+                    </tbody> 
+                </table>
+            </div><!-- end of #tab1 -->	
+        </div><!-- end of .tab_container -->		
+    </article><!-- end of content manager article -->
+    
+    <article class="module width_quarter">
+        <header>
+            <h3>Conectados (28)</h3>
+        </header>
+        <div class="message_list">
+            <div class="module_content">
+                <div class="message">
+                    <p>Angela Muñoz</p>                    
+                </div>
+                <div class="message">
+                    <p>Patricia Aldana</p>                    
+                </div>
+                <div class="message">
+                    <p>Enrique Arias</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre Apellido</p>                    
+                </div>
+                <div class="message">
+                    <p>Rolf Cortes</p>                    
+                </div>
+                <div class="message">
+                    <p>Adrian Peralta</p>                    
+                </div>    
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+                <div class="message">
+                    <p>Nombre2 Apellido2</p>                    
+                </div>
+            </div>
+        </div>
+        <footer>
+           <form class="post_message">
+                <input type="text" value="Message" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+                <input type="submit" class="btn_post_message" value="Buscar"/>
+	   </form>
+        </footer>
+    </article><!-- end of messages article -->
+        <div class="spacer"></div>
+{% endblock %}     

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+<!--
+{# <html>
+<body>
+	<h1>Articles</h1> #}
+-->
+
+{% block sidebar %}
+	<ul class="dropdown-menu">
+	  <li><a href="/events">Explorar</a></li>
+	  
+	  
+	</ul>
+{% endblock %}
+{% block topinfo %}
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<h1>Real Time InEvents</h1>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				 <form class="form-signin" action="newacc/">
+			        <h2 class="form-signin-heading">¡Regístrate con nosotros!</h2>
+			        <input type="text" class="form-control" placeholder="Username" autofocus>
+			        <input type="text" class="form-control" placeholder="Email address" >
+			        <input type="password" class="form-control" placeholder="Password">
+			        <label class="checkbox">
+			          <input type="checkbox" value="remember-me"> Recordarme
+			        </label>
+			        <button class="btn btn-lg btn-primary btn-block" type="submit">Quiero registrarme</button>
+			      </form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block contenido %}
+
+
+
+	<div class="row">
+       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
+       		<a href="#"><img width=" 50px"height="50" src="{% static "images/Search-icon.jpg" %}" alt="item" /></a>
+          <h3>Busca</h3>
+          <p>Busca entre una gran variedad de entos en Lima.</p>
+
+      		
+        </div>
+       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
+       		<a href="#"><img width=" 50px"height="50" src="{% static "images/Interact-icon.jpg" %}" alt="item" /></a>
+          <h3>Interactúa</h3>
+			<p>Experimenta la mejor interacción durante el evento gracias a nuestro sistema y a nuestra app móvil. ¡Pregunta, responde y exprésate en tiempo real!</p>
+       </div>
+       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 text-center">
+       		<a href="#"><img width=" 50px"height="50" src="{% static "images/share-icon.jpg" %}" alt="item" /></a>
+          <h3>Comparte</h3>
+          <p>Comparte tus opiniones y sugerencias del evento.</p>
+        </div>
+	</div>
+
+
+
+
+
+<div class="container sub">
+	<!-- Example row of columns -->
+	<div class="row">
+	{% if events.count > 0 %}
+		{% for event in events %}
+		
+		        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="well">
+		          		<h4 class="text-center">
+		          			<i class="icon-fullscreen"></i> 
+		          			{{event.name}}</h4>
+
+						<p>{{ event.description | lower | truncatewords:"10" }}</p>
+
+						<p><a class="btn btn-default" href="/get/{{event.id}}">View details »</a>
+						</p>
+				  </div>
+		        </div>
+			
+		<!-- CONTAINER-->
+		{% endfor %}
+	{% else %}
+		<p>None to show!</p>
+	{% endif %}
+
+	</div>
+</div>
+
+{% endblock %}
+<!--
+	</body>
+</html>
+-->

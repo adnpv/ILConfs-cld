@@ -1,0 +1,227 @@
+
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Moderador</a></h1>
+                <h2 class="section_title">Reporte de eventos</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}
+
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido moderador Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Panel de moderador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Reporte de evento</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+           <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_settings"><a href="index.html">Tiempo real</a></li>
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>    
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li>               
+            </ul>
+            
+             <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_new_article"><a href="crearpregunta.html">Crear pregunta</a></li>
+                <li class="icn_categories"><a href="listarpreguntas.html">Listar preguntas</a></li>
+                <li class="icn_new_article"><a href="crearalternativa.html">Crear alternativa</a></li>                
+                <li class="icn_categories"><a href="listaralternativas.html">Listar alternativas</a></li>
+            </ul> 
+            
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+        </aside><!-- end of sidebar -->
+
+{% endblock %}
+{% block contenido %}
+        <section id="main" class="column">
+            <article class="module width_full">
+            <header>
+                <h3>Datos</h3>
+            </header>
+            <div class="module_content">              
+                <fieldset>
+                    <label>Reporte</label>
+                    <div id="graficos">
+                        <div class="reportes">
+                            <img src="../static/images/piechart1.png" width="180" height="160" alt=" " />
+                        </div>
+                        <div class="reportes">
+                            <img src="../static/images/piechart2.gif" width="180" height="160" alt=" " />
+                        </div>   
+                        <div class="reportes">
+                            <img src="../static/images/piechart3.gif" width="180" height="160" alt=" " />
+                        </div>  
+                        <div class="clear"></div>
+                    </div>
+                </fieldset>            
+                <div class="clear"></div>
+            </div>
+            <footer>
+               
+            </footer>
+            </article><!-- end of post new article -->
+            
+        <article class="module width_3_quarter">
+        <header>
+            <h3 class="tabs_involved">Contenidos</h3>
+            <ul class="tabs">
+                <li><a href="#tab1">Preguntas</a></li>
+                <li><a href="#tab2">Comentarios</a></li>
+            </ul>
+        </header>
+
+        <div class="tab_container">
+            <div id="tab1" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr> 
+                        <th></th> 
+                        <th>Pregunta</th> 
+                        <th>Evento</th> 
+                        <th>Fecha</th> 
+                        <th>Acciones</th> 
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Articles</td> 
+                            <td>5th April 2011</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Edit"/><input type="image" src="../static/images/icn_trash.png" title="Trash"/></td> 
+                        </tr> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Ipsum Lorem Dolor Sit Amet</td> 
+                            <td>Freebies</td> 
+                            <td>6th April 2011</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Edit"><input type="image" src="../static/images/icn_trash.png" title="Trash"></td> 
+                        </tr>
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Sit Amet Dolor Ipsum</td> 
+                            <td>Tutorials</td> 
+                            <td>10th April 2011</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Edit"><input type="image" src="../static/images/icn_trash.png" title="Trash"></td> 
+                        </tr> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Dolor Lorem Amet</td> 
+                            <td>Articles</td> 
+                            <td>16th April 2011</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Edit"><input type="image" src="../static/images/icn_trash.png" title="Trash"></td> 
+                        </tr>
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Dolor Lorem Amet</td> 
+                            <td>Articles</td> 
+                            <td>16th April 2011</td> 
+                            <td><input type="image" src="../static/images/icn_edit.png" title="Edit"><input type="image" src="../static/images/icn_trash.png" title="Trash"></td> 
+                        </tr>  
+                    </tbody> 
+                </table>
+            </div><!-- end of #tab1 -->
+
+            <div id="tab2" class="tab_content">
+                <table class="tablesorter" cellspacing="0"> 
+                    <thead> 
+                        <tr> 
+                            <th></th> 
+                            <th>Comentario</th> 
+                            <th>Autor</th> 
+                            <th>Fecha</th> 
+                            <th>Acciones</th> 
+                        </tr> 
+                    </thead> 
+                    <tbody> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Lorem Ipsum Dolor Sit Amet</td> 
+                            <td>Mark Corrigan</td> 
+                            <td>5th April 2011</td> 
+                            <td><input type="image" src="images/icn_trash.png" title="Trash" /></td> 
+                        </tr> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Ipsum Lorem Dolor Sit Amet</td> 
+                            <td>Jeremy Usbourne</td> 
+                            <td>6th April 2011</td> 
+                            <td><input type="image" src="images/icn_trash.png" title="Trash" /></td> 
+                        </tr>
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Sit Amet Dolor Ipsum</td> 
+                            <td>Super Hans</td> 
+                            <td>10th April 2011</td> 
+                            <td><input type="image" src="images/icn_trash.png" title="Trash" /></td> 
+                        </tr> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Dolor Lorem Amet</td> 
+                            <td>Alan Johnson</td> 
+                            <td>16th April 2011</td> 
+                            <td><input type="image" src="images/icn_trash.png" title="Trash"/></td> 
+                        </tr> 
+                        <tr> 
+                            <td><input type="checkbox"></td> 
+                            <td>Dolor Lorem Amet</td> 
+                            <td>Dobby</td> 
+                            <td>16th April 2011</td> 
+                            <td><input type="image" src="images/icn_trash.png" title="Trash"/></td> 
+                        </tr> 
+                    </tbody> 
+                </table>
+            </div><!-- end of #tab2 -->			
+        </div><!-- end of .tab_container -->		
+    </article><!-- end of content manager article -->
+
+    <article class="module width_quarter">
+        <header>
+            <h3>Cifras</h3>
+        </header>
+        <div class="message_list">
+            <div class="module_content">
+                <div class="message">
+                    <p><strong>Nro. de asistentes</strong></p>
+                    <p>94</p>                    
+                </div>
+                <div class="message">
+                    <p><strong>Nro. de entradas vendidas</strong></p>
+                    <p>100</p>                    
+                </div>
+                <div class="message">
+                    <p><strong>Recaudación</strong></p>
+                    <p>S/. 1932.00</p>                    
+                </div>                
+            </div>
+        </div>
+        <footer>
+           
+        </footer>
+    </article><!-- end of messages article -->
+    <div class="clear"></div>        
+            
+            <div class="spacer"></div>
+{% endblock %}

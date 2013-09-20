@@ -1,0 +1,77 @@
+
+
+{% block header %}
+	<header id="header">
+		<hgroup>
+			<h1 class="site_title"><a href="index.html">Moderador</a></h1>
+			<h2 class="section_title">Crear sorteo</h2>
+		</hgroup>
+	</header> <!-- end of header bar -->
+	{% endblock %}
+    {% block secondbar %}
+	<section id="secondary_bar">
+		<div class="user">
+			<p>Bienvenido moderador: Adrian Peralta</p>
+			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
+		</div>
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="index.html">Panel de moderador</a> 
+                            <div class="breadcrumb_divider"></div> <a class="current">Crear sorteo</a></article>
+		</div>
+	</section><!-- end of secondary bar comienzo de aside column -->
+	{% endblock %}
+    {% block sidebar %}
+	 <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+            <h3>Eventos</h3>            
+            <ul class="toggle">  
+                <li class="icn_settings"><a href="index.html">Tiempo real</a></li>
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>    
+                <li class="icn_categories"><a href="participantes.html">Participantes</a></li>               
+            </ul>
+          
+            <h3>Trivias</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="creartrivia.html">Crear trivia</a></li>
+                <li class="icn_categories"><a href="listartrivias.html">Listar trivias</a></li>
+                <li class="icn_settings"><a href="ganadortrivia.html">Ver ganador de trivia</a></li>
+            </ul>        
+
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="actualizarusuario.html">Actualizar usuario</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>            
+        </aside><!-- end of sidebar -->
+	{% endblock %}
+    {% block contenido %}
+
+            <article class="module width_full">
+                <header><h3>Datos de sorteo</h3></header>
+                    <div class="module_content">  
+                        <fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                            <label>Premio a sortear</label>
+                            <input type="text" style="width:92%;" value="10% de descuento en el curso" />>
+                        </fieldset>                                         
+                       <fieldset style="width:48%; float:right; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                            <label>Evento</label>
+                            <select style="width:92%;">
+                                <option>CMMI en Pymes</option>   
+                                <option>HTML5 Y CSS3</option>                                                             
+                            </select>
+                         </fieldset>       
+                        <div class="clear"></div>                                                                                   
+                    </div>
+                <footer>
+                    <div class="submit_link">
+                        <input type="submit" value="Actualizar" class="alt_btn">
+                        <input type="submit" value="Limpiar">
+                    </div>
+                </footer>
+            </article><!-- end of post new article -->           
+	
+            <div class="spacer"></div>
+{% endblock %}

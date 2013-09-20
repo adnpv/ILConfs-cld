@@ -1,0 +1,98 @@
+
+{% block header %}
+        <header id="header">
+            <hgroup>
+                <h1 class="site_title"><a href="index.html">Administrador</a></h1>
+                <h2 class="section_title">Preguntas</h2>
+            </hgroup>
+        </header> <!-- end of header bar -->
+{% endblock %}     
+{% block secondbar %}
+        <section id="secondary_bar">
+            <div class="user">
+                <p>Bienvenido administrador: Adrián Peralta</p>
+                <!--<a class="logout_user" href="#" title="Logout">Logout</a>-->
+            </div>
+            <div class="breadcrumbs_container">
+                <article class="breadcrumbs">
+                    <a href="index.html">Administrador</a>
+                    <div class="breadcrumb_divider"></div> 
+                    <a class="current">Preguntas</a>
+                </article>
+            </div>
+        </section><!-- end of secondary bar -->
+{% endblock %}  
+{% block sidebar %}
+        <aside id="sidebar" class="column">
+            <!--<form class="quick_search">
+                <input type="text" value="Quick Search" onfocus="if(!this._haschanged){this.value=''};this._haschanged=true;">
+            </form>-->
+            <hr/>
+          <h3>Eventos</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearevento.html">Crear evento</a></li>
+                <li class="icn_edit_article"><a href="actualizarevento.html">Actualizar evento</a></li>
+                <li class="icn_categories"><a href="listareventos.html">Listar eventos</a></li>		
+                <li class="icn_categories"><a href="reportedeevento.html">Ver reporte de evento</a></li>
+            </ul>
+            
+            <h3>Preguntas</h3>
+            <ul class="toggle">                
+                <li class="icn_new_article"><a href="crearpregunta.html">Crear pregunta</a></li>
+                <li class="icn_categories"><a href="listarpreguntas.html">Listar preguntas</a></li>
+                <li class="icn_new_article"><a href="crearalternativa.html">Crear alternativa</a></li>                
+                <li class="icn_categories"><a href="listaralternativas.html">Listar alternativas</a></li>
+            </ul> 
+            
+            <h3>Encuestas</h3>
+            <ul class="toggle">
+                <li class="icn_new_article"><a href="crearencuesta.html">Crear encuesta</a></li>
+            </ul>
+            
+            <h3>Usuarios</h3>
+            <ul class="toggle">
+                <li class="icn_add_user"><a href="crearusuario.html">Crear usuario</a></li>
+                <li class="icn_view_users"><a href="actualizarusuario.html">Actualizar usuario</a></li>			
+            </ul>
+
+            <h3>Cuenta</h3>
+            <ul class="toggle">
+                <li class="icn_profile"><a href="#">Actualizar perfil</a></li>
+                <li class="icn_jump_back"><a href="#">Cerrar sesión</a></li>
+            </ul>
+
+
+        </aside><!-- end of sidebar -->
+{% endblock %}     
+{% block contenido %}
+
+        <article class="module width_full">
+            <header>
+                <h3>Crear pregunta</h3>
+            </header>
+            <div class="module_content">
+                              
+                <fieldset style="width:30%; float:left; margin-right: 10px; height: 50px;"> <!-- to make two field float next to one another, adjust values accordingly -->
+                    <label>Evento</label>
+                    <select style="width:80%;">
+                        <option>Elija evento</option>
+                        <option>HTML5 y CSS3</option>
+                        <option>Cóme vender a un escéptico</option>
+                    </select>                    
+                </fieldset>
+                <fieldset style="float:left; width: 450px;">
+                    <label>Pregunta</label>
+                    <input type="text" style="width:90%;" />
+                </fieldset>  
+                <div class="clear"></div>
+            </div>
+                <footer>
+                    <div class="submit_link" style="padding: 5px 360px;">
+                        <input type="submit" value="Guardar" class="alt_btn">
+                        <input type="submit" value="Cancelar">
+                    </div>
+                </footer>
+            </article><!-- end of post new article -->
+
+            <div class="spacer"></div>
+{% endblock %}     

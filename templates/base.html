@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   		<meta charset="utf-8">
+			<title>{% block title %} my base template {% endblock %}</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+
+		<link href="{% static "assets/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="{% static "css/font-awesome.min.css" %}"/>
+		<link rel="stylesheet" type="text/css" href="{% static "assets/style.css" %}"/>
+<!-- GOOGLE FONT-->
+		<link rel="stylesheet" type="text/css" href="{% static "css/fontis-google.css" %}"/>
+<!-- /GOOGLE FONT-->	
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+<!-- Le fav and touch icons -->
+		<link rel="shortcut icon" href="{% static "assets/ico/favicon.ico" %}"/>
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static "assets/ico/apple-touch-icon-144-precomposed.png" %}"/>
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static "assets/ico/apple-touch-icon-114-precomposed.png" %}">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static "assets/ico/apple-touch-icon-72-precomposed.png" %}">
+		<link rel="apple-touch-icon-precomposed" href="{% static "assets/ico/apple-touch-icon-57-precomposed.png" %}">
+
+
+	</head>
+
+<!--(inicio)Nivel 2 publico web-->
+<body>
+	<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));</script>
+	<!-- MAIN WRAPPER class="wrapper" max-width="1110px"-->
+	<div class="wrapper">
+
+		<header>	
+			<!-- NAVBAR-->
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+						  	<span class="sr-only">Toggle navigation</span>
+						 	<span class="icon-bar"></span>
+						  	<span class="icon-bar"></span>
+						  	<span class="icon-bar"></span>
+						</button>
+
+						<a class="navbar-brand" href="/home">PIETReal.COM</a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						
+
+						<form class="navbar-form navbar-left" role="search">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Search">
+							</div>
+						  	<button type="submit" class="btn btn-primary">Buscar</button>
+						</form>
+
+						<ul class="nav navbar-nav">
+							
+						  	
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Eventos <b class="caret"></b></a>
+								{% block sidebar %}
+										<ul class="dropdown-menu">
+										  <li><a href="/events">Explorar</a></li>
+										  <li><a href="/home/interact/1">Evento Activo I.</a></li>
+										  <li><a href="/home/eventosh/">Mis Eventos</a></li>
+										  <li><a href="/home/entradas/">Mis Entradas</a></li>
+										  
+										  
+										</ul>
+									{% endblock %}
+								
+							</li>
+							<li><a href="/home/serv/">Servicios</a></li>
+						  	<li><a href="/home/contact/">Contactenos</a></li>
+						</ul>
+						<div class="fb-like nav navbar-nav" data-href="https://www.facebook.com/pietreal" data-width="450" data-show-faces="false" data-send="true"></div>
+						<div class="nav navbar-nav navbar-right">
+								{% block login %}
+							   	<a class="btn btn-danger navbar-btn" style="margin-left:10px;">Sign up</a> 
+							   
+						   		<a class="btn btn-success navbar-btn">Sign in</a> 
+							   {% endblock %}
+						</div>
+
+					</div><!-- /.navbar-collapse --> 
+				</div>	
+			</nav>
+			<!-- PAGE-HEADER-->
+				{% block topinfo %}
+				<div class="jumbotron">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<h1>Real Time InEvents</h1>
+							</div>
+						</div>
+					</div>
+			    </div>
+			    {% endblock %}
+		</header>
+		<!-- PAGE-HEADER-->
+				
+
+<div class="container">
+ <!-- related projects -->
+			{% block middle%}
+
+			{% endblock %}
+			<div id="content">
+
+				{% block contenido %}
+					this is the content area
+				{% endblock %}
+				
+			</div>
+
+</div> <!-- /container -->
+<!--/ CONTENT -->
+
+
+<!-- FOOTER-->
+<footer>
+	{% block footer %} 
+	<div class="container">
+		<hr>
+        	<p>© pietreal.com Company 2013</p>
+  	</div><!-- CONTAINER FOOTER-->
+	 {% endblock %} 
+</footer>
+
+
+
+
+
+		</div>
+<!-- /end WRAPPER-->
+
+<script src="{% static "assets/js/jquery.js" %}" type="text/javascript"></script>
+
+ 
+<!-- Latest compiled and minified JavaScript -->
+<script src= "{% static "assets/js/bootstrap.min.js" %}"></script>
+<script src= "{% static "assets/js/bootstrap-tabs.js" %}"></script>
+<script>
+ $('.carousel').carousel() 
+</script>
+
+</body>
+</html>

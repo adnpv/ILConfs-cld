@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+<!--
+{# <html>
+<body>
+	<h1>Articles</h1> #}
+-->
+
+
+
+{% block topinfo %}
+
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container sub">
+	<!-- Example row of columns -->
+	<div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          	<div class="jumbotron col-xs-12 col-md-8">
+
+
+            	<table class="table">
+	                <thead>
+	                  <tr>
+	                    <th >Codigo</th>
+	                    <th >Nombre</th>
+	                    <th >Fecha Inicio</th>
+	                    <th >Fecha Fin</th>
+	                    <th ></th>
+	                  </tr>
+	                </thead>
+
+	                <tbody>
+	                  <tr>
+	                    <td>04533</td>
+	                    <td>Simposio</td>
+	                    <td>9am 09/11/13</td>
+	                    <td>10pm 09/11/13</td>
+	                    <td><button type="button" class= "btn btn-primary">ir</button></td>
+	                  </tr>
+	                  <tr>
+	                    <td>04534</td>
+	                    <td>Maestrias</td>
+	                    <td>9am 20/09/13</td>
+	                    <td>10pm 21/09/13</td>
+	                    <td><button type="button" class= "btn btn-primary">ir</button></td>
+	                  </tr>
+	                  <tr>
+	                    <td>04532</td>
+	                    <td>Ruby Peru</td>
+	                    <td>9am 09/09/13</td>
+	                    <td>10pm 09/09/13</td>
+	                    <td><button type="button" class= "btn btn-primary">ir</button></td>
+	                  </tr>
+	                </tbody>
+				</table>
+			</div>
+          
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-md-4 " id="sidebar" role="navigation">
+          
+          <div class="well sidebar-nav">
+            <h3>Calendario/entradas</h3>
+			<!--
+				<div class="panel panel-default">
+					<div class="panel-body">
+						
+					</div>
+				</div>-->
+				
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<ul id="myTab" class="nav nav-tabs">
+							<li class="active"><a href="#home" data-toggle="tab">Cal</a></li>
+							<li><a href="#profile" data-toggle="tab">Entradas</a></li>
+			
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade in active" id="home">
+								<div class="row">
+									<div class="col-xs-4 col-sm-4 col-lg-4 text-center">
+										<div class="thumbnail" style="">
+											<!--<img src="http://lorempixel.com/260/195/technics/1" class="img-responsive" alt="">-->
+										</div>
+									</div>
+									<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+									<a class="" href=""><h5>Ruby Perú</h5></a>
+
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-xs-4 col-sm-4 col-lg-4 text-center">
+										<div class="thumbnail" style="">
+											<!--<img src="http://lorempixel.com/260/195/technics/1" class="img-responsive" alt="">-->
+										</div>
+									</div>
+									<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+									<a class="" href=""><h5>Startup Weekend</h5></a>
+
+									</div>
+								</div>
+						
+						
+							</div>
+							<div class="tab-pane fade widget-tags" id="profile">
+								<div class="list-group">
+									<a href="#" class="list-group-item active">Simposio<span class="badge">134</span></a>
+									<a href="#" class="list-group-item">Ruby Perú</a>
+									<a href="#" class="list-group-item">Startup Weekend</a>
+									<a href="#" class="list-group-item">Anual Forum<span class="badge">14</span></a>
+									<a href="#" class="list-group-item">Agile Lima</a>
+								</div>
+							</div>
+					  	</div>
+					</div>
+				</div>
+
+
+          </div><!--/.well -->
+
+          <div class="well sidebar-nav">
+            <h3>Socios Estrategicos</h3>
+            <ul class="nav">
+              <li>Socios Estrategicos</li>
+            </ul>
+          </div><!--/.well -->
+
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+
+</div>
+
+
+{% endblock %}
+<!--
+	</body>
+</html>
+-->

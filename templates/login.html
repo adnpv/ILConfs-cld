@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% if from.errors %}
+		<p class="error">Sorry, not valid user or pass</p>
+	{% endif %}
+
+	<form action= "/accounts/auth" method="post"> {% csrf_token %}
+		<label for="username">user name:</label>
+		<input name="username">
+		<label>password:</label>
+		<input type="password" name="password">
+		<input type="submit" value= "login">
+	</form>	
+
+{% endblock %}
