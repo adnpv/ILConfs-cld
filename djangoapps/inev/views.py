@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from djangoapps.moderat.models import Quest, Choice
 import json
 
-
+ 
 def answer(request):
 	response_data = {}
 	if request.method == 'POST':
@@ -27,3 +27,37 @@ def event(request,event_id=1):
 	return render_to_response('event.html',
 								{'event':Event.objects.get(id=event_id),})
 
+def quest(request, quest_id=1):
+	que=request.GET.get('que')
+	q = Quest.objects.get(id=que)
+	data = [choice.json() for choice in Choice.objects.all().filter(quest=q)]
+	nice = 'nice' in request.GET
+
+	jsonString = json.dumps(data,sort_keys=nice,indent=4 if nice else None)
+	if que:
+		jsonString = '%s (%s)' %('?', jsonString)
+        #jsonString = '{%s %s}' %('"events":', jsonString)
+	return HttpResponse(jsonString, content_type='application/json')
+    #http://localhost:8000/json/jsonev/?nice
+    #return HttpResponse(json.dumps(data), content_type='application/json')
+
+# def add_topic(request, event_id):
+#     e = Event.objects.get(id=event_id)
+
+#     if request.method == 'POST':
+#         f = TopicForm(request.POST)
+#         if f.is_valid():
+#             t = f.save(commit=false)#not push yet.
+#             #more values... to event yes.
+#             t.event = e
+#             t.save()
+#             return HttpResponseRedirect('/event/get/%s' % event_id)
+#     else:
+#         f=TopicForm()
+#     args ={}
+#     args.update(csrf(request))
+
+#     args['article']=a
+#     args['form']=f
+
+#     return render_to_response('add_topic.html',args)
