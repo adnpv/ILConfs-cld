@@ -34,8 +34,12 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-default_database = os.environ.get('DJANGO_DATABASE', 'main')
+default_database = 'default'
+if os.environ.get('DJANGO_DATABASE', 'main') == 'local' :
+    default_database = os.environ.get('DJANGO_DATABASE', 'main')
+
 DATABASES['default'] = DATABASES[default_database]
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
