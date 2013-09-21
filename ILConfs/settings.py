@@ -35,7 +35,7 @@ DATABASES = {
     }
 }
 default_database = 'default'
-if os.environ.get('DJANGO_DATABASE', 'main') == 'local' :
+if os.getenv('DJANGO_DATABASE') == 'local' :
     default_database = os.environ.get('DJANGO_DATABASE', 'main')
 
 DATABASES['default'] = DATABASES[default_database]
