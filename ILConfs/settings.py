@@ -10,6 +10,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+BASE = os.path.dirname(os.path.realpath(__file__))
+dbsqlite= BASE +'/ilconf.db'
 
 DATABASES = {
     'default': {
@@ -19,6 +21,15 @@ DATABASES = {
         'USER': 'adnp',
         'PASSWORD': 'admin1$_%',
         'HOST': 'mysql.server',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
+    },
+    'local': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': dbsqlite,                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
