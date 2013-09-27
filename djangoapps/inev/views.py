@@ -3,7 +3,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response	
 from djangoapps.moderat.models import Quest, Choice
-import json
+#import json
+from django.utils import simplejson as json
+from django.core import serializers
 
  
 def answer(request):
@@ -38,13 +40,37 @@ def quest(request, quest_id=1):
 		jsonString = '%s (%s)' %('?', jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
 	return HttpResponse(jsonString, content_type='application/json')
-    #http://localhost:8000/json/jsonev/?nice
-    #return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+def dausprueba(request):
+	response_data = {}
+	result = []
+
+
+	if request.method == 'GET':
+		callback = request.GET.get('callback')
+		pre=request.GET['query']
+		
+		if pre == "all":
+			result.append({"user":"exito"})
+			result.append({"key":"Gracias por Participar"})
+			response_data['result'] = 'Exito'
+			response_data['message'] = 'Gracias por Participar'
+
+			print response_data['message']
+		else:
+			response_data['result'] = 'Error'
+			response_data['message'] = 'Su Votacion no se conto'
+	
+
+	jsonString = json.dumps(result,sort_keys='nice',indent=4)
+
+	return HttpResponse(jsonString, content_type='application/json')
 
 # def add_topic(request, event_id):
 #     e = Event.objects.get(id=event_id)
 
-#     if request.method == 'POST':
+#     if request.method == 'GET':
 #         f = TopicForm(request.POST)
 #         if f.is_valid():
 #             t = f.save(commit=false)#not push yet.
