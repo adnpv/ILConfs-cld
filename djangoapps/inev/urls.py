@@ -10,6 +10,9 @@ urlpatterns= patterns('djangoapps.inev.views',
 	#url(r'^observa/$','observus'),
 
 	url(r'^obtener/$','dausprueba'),
+	url(r'^getquest_cho/$','get_choices'),
+	url(r'^comerce/$','responder_de_web'),
+
 
 	#url(r'^get/(?P<event_id>\d+)/$','event'),
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
