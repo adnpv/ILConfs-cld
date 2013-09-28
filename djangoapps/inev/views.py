@@ -41,6 +41,46 @@ def quest(request, quest_id=1):
     #http://localhost:8000/json/jsonev/?nice
     #return HttpResponse(json.dumps(data), content_type='application/json')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# def observus(request):
+# 	response_data = {}
+# 	if request.method == "OPTIONS": 
+# 		response = HttpResponse()
+# 		response['Access-Control-Allow-Origin'] = '*'
+# 		response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+# 		response['Access-Control-Max-Age'] = 1000
+# 		# note that '*' is not valid for Access-Control-Allow-Headers
+# 		response['Access-Control-Allow-Headers'] = 'origin, x-csrftoken, content-type, accept'
+# 		return response
+
+# 	if request.method == 'GET':
+# 		resu=request.GET['quesu']
+		
+# 		if resu =="all":
+# 			response_data['result'] = 'Exito'
+# 			response_data['message'] = 'Gracias por Participar'
+# 		else:
+# 			response_data['result'] = 'Error'
+# 			response_data['message'] = 'Su Votacion no se conto'
+# 	return HttpResponse(json.dumps(response_data), mimetype="application/json")
+
 # def add_topic(request, event_id):
 #     e = Event.objects.get(id=event_id)
 
