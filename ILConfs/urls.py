@@ -5,6 +5,11 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+from djangoapps.inev.api import QuestionResource
+
+question_resource = QuestionResource()
+
+
 urlpatterns = patterns('',
 	(r'^', include('djangoapps.event.urls')),
 	(r'^/$', include('djangoapps.event.urls')),
@@ -14,6 +19,7 @@ urlpatterns = patterns('',
     (r'^adm/', include('djangoapps.admn.urls')),
     (r'^moder/', include('djangoapps.moderat.urls')),
     (r'^interactiv/', include('djangoapps.inev.urls')),
+    (r'^api/', include(question_resource.urls)),
     # Examples:
     # url(r'^$', 'ILConfs.views.home', name='home'),
     # url(r'^ILConfs/', include('ILConfs.foo.urls')),

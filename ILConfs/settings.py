@@ -165,6 +165,7 @@ INSTALLED_APPS = (
     'djangoapps.moderat',
     'djangoapps.inev',
     'south',
+    'tastypie',
 )
 
 # A sample logging configuration. The only tangible logging
