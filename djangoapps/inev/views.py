@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response	
 from djangoapps.moderat.models import Quest, Choice
 #import json
-from django.utils import simplejson as json
+from django.utils import simplejson as json2
 from django.core import serializers
 
 import requests
@@ -22,13 +22,14 @@ def answer(request):
 		cho.nchoices += 1
 		cho.save()
 		last_chon = cho.nchoices
+		print "DONE"
 		if initial_chon != last_chon :
 			response_data['result'] = 'Exito'
 			response_data['message'] = 'Gracias por Participar'
 		else:
 			response_data['result'] = 'Error'
 			response_data['message'] = 'Su Votacion no se conto'
-	return HttpResponse(json.dumps(response_data), mimetype="application/json")
+	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
 
 def responder_de_web(request): #traer data y hacer push en mobil
@@ -38,9 +39,9 @@ def responder_de_web(request): #traer data y hacer push en mobil
 
 		r = requests.get('http://elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json')
 		data2 = r.json()
-		#data = json.dumps(data2,sort_keys='nice',indent=4)
+		#data = json2.dumps(data2,sort_keys='nice',indent=4)
 	#print data
-	return HttpResponse(json.dumps(data2), mimetype="application/json")
+	return HttpResponse(json2.dumps(data2), mimetype="application/json")
 
 def servir_de_web(): #traer data y hacer push en mobil
 	"elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json"
@@ -65,7 +66,7 @@ def get_choices(request):
 			response_data['message'] = 'Su Votacion no se conto'
 	
 
-	jsonString = json.dumps(result,sort_keys='nice',indent=4)
+	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
 	return HttpResponse(jsonString, content_type='application/json')
 
@@ -78,10 +79,11 @@ def event(request,event_id=1):
 def quest(request, quest_id=1):
 	que=request.GET.get('que')
 	q = Quest.objects.get(id=que)
+	#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
 	data = [choice.json() for choice in Choice.objects.all().filter(quest=q)]
 	nice = 'nice' in request.GET
 
-	jsonString = json.dumps(data,sort_keys=nice,indent=4 if nice else None)
+	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
 	# if que:
 	# 	jsonString = '%s (%s)' %('?', jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
@@ -109,7 +111,7 @@ def dausprueba(request):
 			response_data['message'] = 'Su Votacion no se conto'
 	
 
-	jsonString = json.dumps(result,sort_keys='nice',indent=4)
+	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
 	return HttpResponse(jsonString, content_type='application/json')
 
@@ -134,7 +136,7 @@ def dausprueba(request):
 # 		else:
 # 			response_data['result'] = 'Error'
 # 			response_data['message'] = 'Su Votacion no se conto'
-# 	return HttpResponse(json.dumps(response_data), mimetype="application/json")
+# 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
 # def add_topic(request, event_id):
 #     e = Event.objects.get(id=event_id)

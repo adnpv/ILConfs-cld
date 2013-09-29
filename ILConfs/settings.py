@@ -128,7 +128,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-XS_SHARING_ALLOWED_ORIGINS = "http://127.0.0.1:9910"#mobile!
+XS_SHARING_ALLOWED_ORIGINS = "*" #mobile!
 XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 ROOT_URLCONF = 'ILConfs.urls'
