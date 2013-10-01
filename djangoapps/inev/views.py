@@ -3,6 +3,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response	
 from djangoapps.moderat.models import Quest, Choice
+from djangoapps.inev.models import Question
 #import json
 from django.utils import simplejson as json2
 from django.core import serializers
@@ -31,13 +32,15 @@ def answer(request):
 			response_data['message'] = 'Su Votacion no se conto'
 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
-
+ 
 def responder_de_web(request): #traer data y hacer push en mobil
 	response_data = {}
 	data ="nop"
 	if request.method == 'GET':
 
-		r = requests.get('http://elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json')
+		#r = requests.get('http://elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json')
+
+		r=request.get('https://github.com/timeline.json')
 		data2 = r.json()
 		#data = json2.dumps(data2,sort_keys='nice',indent=4)
 	#print data
@@ -114,6 +117,28 @@ def dausprueba(request):
 	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
 	return HttpResponse(jsonString, content_type='application/json')
+
+
+
+
+def make_question(request):
+	response_data = {}
+	if request.method == 'GET':
+		titu=request.GET['titulo']
+		detall=request.GET['detalle']
+		tema_id=request.GET['idtema']
+		#user_id=request.GET['idus']
+		#crear pregunta y guardarla
+		preg = Question(name=titu, detail= detall, iduser=1, idthema= 1)
+		preg.save()
+		response_data['result'] = 'gracias'
+		# if initial_chon != last_chon :
+		# 	response_data['result'] = 'Exito'
+		# 	response_data['message'] = 'Gracias por Participar'
+		# else:
+		# 	response_data['result'] = 'Error'
+		# 	response_data['message'] = 'Su Votacion no se conto'
+	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
 
 # def observus(request):

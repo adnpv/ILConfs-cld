@@ -14,6 +14,7 @@ urlpatterns= patterns('djangoapps.inev.views',
 	url(r'^getquest_cho/$','get_choices'),
 	url(r'^comerce/$','responder_de_web'),
 	
+	url(r'^question/$','make_question'),
 
 	#url(r'^get/(?P<event_id>\d+)/$','event'),
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
