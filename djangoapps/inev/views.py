@@ -9,6 +9,7 @@ from django.utils import simplejson as json2
 from django.core import serializers
 
 import requests
+
 def answer(request):
 	response_data = {}
 	if request.method == 'GET':
@@ -18,20 +19,52 @@ def answer(request):
 		n= choice.split('-', 1 );
 		chu= n[1]
 		print chu
-		cho = Choice.objects.get(id=chu)#tambn quest ", quest=q"
-		initial_chon = cho.nchoices
-		cho.nchoices += 1
-		cho.save()
-		last_chon = cho.nchoices
-		print "DONE"
-		if initial_chon != last_chon :
-			response_data['result'] = 'Exito'
-			response_data['message'] = 'Gracias por Participar'
+		valcheck = Choice.objects.filter(id=chu)
+		if valcheck.count() > 0:
+			response_data=almacenar(chu)
 		else:
-			response_data['result'] = 'Error'
-			response_data['message'] = 'Su Votacion no se conto'
+			loadnewdata()
+			#ingresar valor 
 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
+#funcion para las respuestas.
+def almacenar(valu):
+	response_data = {}
+	cho = Choice.objects.get(id=valu)#tambn quest ", quest=q"
+	initial_chon = cho.nchoices
+	cho.nchoices += 1
+	cho.save()
+	last_chon = cho.nchoices
+	print "DONE"
+	if initial_chon != last_chon :
+		response_data['result'] = 'Exito'
+		response_data['message'] = 'Gracias por Participar'
+	else:
+		response_data['result'] = 'Error'
+		response_data['message'] = 'Su Votacion no se conto'
+	return response_data
+
+#funcion actualizar db segun json.
+def loadnewdata():
+	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+	data = r.json()
+	i=0
+	opcion = {}
+	for d in data:
+		
+		if i == 0:
+			pregunta= d["nombre"]
+			idpreg= d["idpregunta"]
+			#crear pregunta y guardarla
+			preg = Quest(name=pregunta, id= idpreg, status=1)
+			preg.save()
+		else:
+			key = str(d["idalternativa"])
+			opcion[key]=d["nombre"]
+
+	
+
+	# return data[0]["nombre"]
  
 def responder_de_web(request): #traer data y hacer push en mobil
 	response_data = {}
@@ -40,7 +73,7 @@ def responder_de_web(request): #traer data y hacer push en mobil
 
 		#r = requests.get('http://elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json')
 
-		r=request.get('https://github.com/timeline.json')
+		r=requests.get('https://github.com/timeline.json')
 		data2 = r.json()
 		#data = json2.dumps(data2,sort_keys='nice',indent=4)
 	#print data
@@ -79,14 +112,22 @@ def event(request,event_id=1):
 	return render_to_response('event.html',
 								{'event':Event.objects.get(id=event_id),})
 
-def quest(request, quest_id=1):
+def quest(request):
 	que=request.GET.get('que')
 	q = Quest.objects.get(id=que)
+
 	#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
 	data = [choice.json() for choice in Choice.objects.all().filter(quest=q)]
-	nice = 'nice' in request.GET
+	#nice = 'nice' in request.GET
 
-	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+	response_data = {}
+	if request.method == 'GET':
+		r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+		data2 = r.json()
+		#data2 = json2.load(r.json())
+
+	#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+	jsonString = json2.dumps(data2,sort_keys='nice',indent=4)
 	# if que:
 	# 	jsonString = '%s (%s)' %('?', jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
