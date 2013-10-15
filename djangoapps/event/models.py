@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime   
 # Create your models here.
 class Event(models.Model):
+	idevent = models.IntegerField()
 	name = models.CharField(max_length=200)
 	description = models.TextField()
 	start_date = models.DateField('initial date',default=datetime.now, blank=True)
@@ -11,7 +12,8 @@ class Event(models.Model):
 	longitude = models.DecimalField(max_digits=9, decimal_places=6)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
-	likes = models.IntegerField()
+	likes = models.IntegerField()	#destacado
+	organizer = models.CharField(max_length=50)
 
 
 	def json(self):
@@ -28,6 +30,7 @@ class Event(models.Model):
 		return self.name
 
 class Topic(models.Model):
+	idtopic = models.IntegerField()
 	event = models.ForeignKey(Event)
 	name = models.CharField(max_length=200)
 	description = models.TextField()

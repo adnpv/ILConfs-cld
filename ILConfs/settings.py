@@ -164,6 +164,7 @@ INSTALLED_APPS = (
     'djangoapps.admn',
     'djangoapps.moderat',
     'djangoapps.inev',
+    'djangoapps.userp',
     'south',
     'tastypie',
 )

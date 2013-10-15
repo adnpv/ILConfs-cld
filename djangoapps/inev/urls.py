@@ -7,6 +7,7 @@ urlpatterns= patterns('djangoapps.inev.views',
 	url(r'^jsonquest/$','quest'),
 
 
+
 	
 	#url(r'^observa/$','observus'),
 
@@ -18,4 +19,7 @@ urlpatterns= patterns('djangoapps.inev.views',
 
 	#url(r'^get/(?P<event_id>\d+)/$','event'),
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
+
+	url(r'^getsdata/$','manuals'),
+	url(r'^getquest/$','manual_get_quests'),
 )

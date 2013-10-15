@@ -4,12 +4,15 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response	
 from djangoapps.moderat.models import Quest, Choice
 from djangoapps.inev.models import Question
+from djangoapps.event.models import Event, Topic
+from djangoapps.userp.models import User, Ticket
 #import json
 from django.utils import simplejson as json2
 from django.core import serializers
 
 import requests
 
+#resolv multiple choice
 def answer(request):
 	response_data = {}
 	if request.method == 'GET':
@@ -44,7 +47,7 @@ def almacenar(valu):
 		response_data['message'] = 'Su Votacion no se conto'
 	return response_data
 
-#funcion actualizar db segun json.
+#funcion actualizar db segun json..... a eliminar!!
 def loadnewdata():
 	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
 	data = r.json()
@@ -79,8 +82,11 @@ def responder_de_web(request): #traer data y hacer push en mobil
 	#print data
 	return HttpResponse(json2.dumps(data2), mimetype="application/json")
 
-def servir_de_web(): #traer data y hacer push en mobil
-	"elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json"
+#def servir_de_web(): #traer data y hacer push en mobil
+#	"elcomercio.pe/html/noticia/0/1/4/5/3/1453463/1453463compacto.json"
+
+
+#antiguoooooooooooooooooooo
 def get_choices(request):
 	response_data = {}
 	result = []
@@ -105,13 +111,13 @@ def get_choices(request):
 	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
 	return HttpResponse(jsonString, content_type='application/json')
-
 	
-
 def event(request,event_id=1):
 	return render_to_response('event.html',
 								{'event':Event.objects.get(id=event_id),})
 
+
+#traer data de php.
 def quest(request):
 	que=request.GET.get('que')
 	q = Quest.objects.get(id=que)
@@ -132,6 +138,14 @@ def quest(request):
 	# 	jsonString = '%s (%s)' %('?', jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
 	return HttpResponse(jsonString, content_type='application/json')
+
+
+
+
+
+
+
+
 
 
 def dausprueba(request):
@@ -170,8 +184,24 @@ def make_question(request):
 		tema_id=request.GET['idtema']
 		#user_id=request.GET['idus']
 		#crear pregunta y guardarla
-		preg = Question(name=titu, detail= detall, iduser=1, idthema= 1)
-		preg.save()
+		useri = User.objects.get(iduser=1)	#iduser
+		topici = Topic.objects.get(idtopic=1)  #idthema
+		preg = Question(name=titu, detail= detall)#, iduser=1, idthema= 1)
+		#nuevo(3):
+		pregu = preg.save(commit=false)
+		pregu.topic = topici
+		pregu.user = useri
+
+						#     if request.method == 'GET':
+						#         f = TopicForm(request.POST)
+						#         if f.is_valid():
+						#             t = f.save(commit=false)#not push yet.
+						#             #more values... to event yes.
+						#             t.event = e
+						#             t.save()
+
+
+		pregu.save()
 		response_data['result'] = 'gracias'
 		# if initial_chon != last_chon :
 		# 	response_data['result'] = 'Exito'
@@ -180,6 +210,49 @@ def make_question(request):
 		# 	response_data['result'] = 'Error'
 		# 	response_data['message'] = 'Su Votacion no se conto'
 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
+
+
+#obtener manualmente opciones
+def manuals(request):
+	return render_to_response('manual_gets.html')
+
+def manual_get_quests(request):
+	response_data = {}
+	datok = 1
+	opc1=[]
+	new=request.GET.get('new')
+	if new == '1':
+		if request.method == 'GET':
+			r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+			data2 = r.json()
+			data3 =json2.loads(r.content)
+			datok= data3[0]['nombre']
+			#datok= data2[0]['nombre']
+			#datok = len(data2)
+			for i in range(len(data2)):
+				if i == 0:
+					print 'no'
+				else:
+					opc1.append(data2[i]['nombre'])
+			 		#opc1[i]=data2[i]['nombre']
+
+		jsonString = json2.dumps(data2,sort_keys='nice',indent=4)
+		#datok = jsonString
+	return render_to_response('manual_gets.html', {'pregunta':datok,
+													'opc1':opc1,}) 
+
+def manual_get_users():
+
+	return HttpResponse(jsonString, content_type='application/json')
+
+def manual_get_events():
+
+	return HttpResponse(jsonString, content_type='application/json')
+
+
+def manual_get_topics():
+
+	return HttpResponse(jsonString, content_type='application/json')
 
 
 # def observus(request):
