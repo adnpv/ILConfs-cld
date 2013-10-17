@@ -1,7 +1,7 @@
 
 
 from django.http import HttpResponse
-from django.shortcuts import render_to_response	
+from django.shortcuts import render_to_response
 from djangoapps.moderat.models import Quest, Choice
 from djangoapps.inev.models import Question
 from djangoapps.event.models import Event, Topic
@@ -27,7 +27,7 @@ def answer(request):
 			response_data=almacenar(chu)
 		else:
 			loadnewdata()
-			#ingresar valor 
+			#ingresar valor
 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
 #funcion para las respuestas.
@@ -54,7 +54,7 @@ def loadnewdata():
 	i=0
 	opcion = {}
 	for d in data:
-		
+
 		if i == 0:
 			pregunta= d["nombre"]
 			idpreg= d["idpregunta"]
@@ -65,10 +65,10 @@ def loadnewdata():
 			key = str(d["idalternativa"])
 			opcion[key]=d["nombre"]
 
-	
+
 
 	# return data[0]["nombre"]
- 
+
 def responder_de_web(request): #traer data y hacer push en mobil
 	response_data = {}
 	data ="nop"
@@ -95,7 +95,7 @@ def get_choices(request):
 	if request.method == 'GET':
 		callback = request.GET.get('callback')
 		pre=request.GET['query']
-		
+
 		if pre == "all":
 			result.append({"user":"exito"})
 			result.append({"key":"Gracias por Participar"})
@@ -106,12 +106,12 @@ def get_choices(request):
 		else:
 			response_data['result'] = 'Error'
 			response_data['message'] = 'Su Votacion no se conto'
-	
+
 
 	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
 	return HttpResponse(jsonString, content_type='application/json')
-	
+
 def event(request,event_id=1):
 	return render_to_response('event.html',
 								{'event':Event.objects.get(id=event_id),})
@@ -156,7 +156,7 @@ def dausprueba(request):
 	if request.method == 'GET':
 		callback = request.GET.get('callback')
 		pre=request.GET['query']
-		
+
 		if pre == "all":
 			result.append({"user":"exito"})
 			result.append({"key":"Gracias por Participar"})
@@ -167,7 +167,7 @@ def dausprueba(request):
 		else:
 			response_data['result'] = 'Error'
 			response_data['message'] = 'Su Votacion no se conto'
-	
+
 
 	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
 
@@ -224,8 +224,9 @@ def manual_get_quests(request):
 	if new == '1':
 		if request.method == 'GET':
 			r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-			data2 = r.json()
-			data3 =json2.loads(r.content)
+			#data2 = r.json()
+            #dataform = str(r.content).strip("'<>() ").replace('\'', '\"')
+			data3 =json2.loads(str(r.content).strip("'<>() ").replace('\'', '\"'))
 			datok= data3[0]['nombre']
 
 			idpreg=data3[0]['idpregunta']
@@ -246,28 +247,28 @@ def manual_get_quests(request):
 			#multopc.save()
 			q.save()
 			#reg = Quest(name=titu, detail= detall)#, iduser=1, idthema= 1)
-			for i in range(len(data2)):
+			for i in range(len(data3)):#antes 2
 				if i == 0:
 					print 'no'
 				else:
-					opc1.append(data2[i]['nombre'])
-					idalternativa=data2[i]['idalternativa']
-					nombrealtern=data2[i]['nombre']
+					opc1.append(data3[i]['nombre'])#antes2
+					idalternativa=data3[i]['idalternativa']
+					nombrealtern=data3[i]['nombre']
 
 					cho=Choice(name=nombrealtern,nchoices=0,id=idalternativa)
 					cho.quest = q
 					cho.save()
 			 		#opc1[i]=data2[i]['nombre']
 
-		jsonString = json2.dumps(data2,sort_keys='nice',indent=4)
+		jsonString = json2.dumps(data3,sort_keys='nice',indent=4)
 
 		#hacer push! notificacion al celular!!!
 		#datok = jsonString
 	return render_to_response('manual_gets.html', {'pregunta':datok,
-													'opc1':opc1,}) 
+													'opc1':opc1,})
 
 def jsonmultipleopc(request):
-	
+
 	if request.method == 'GET':
 		idquest=request.GET.get('id')
 		questi = Quest.objects.get(id=idquest)
@@ -280,12 +281,12 @@ def jsonmultipleopc(request):
     	if callback:
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
-    	
+
     	return HttpResponse(jsonString, content_type='application/json')
 	return HttpResponse('jsonString', content_type='application/json')
 
 def jsonpreguntos(request):
-	
+
 	if request.method == 'GET':
 		idtopicu=request.GET.get('id')
 		topicn = Topic.objects.get(id=idtopicu)
@@ -299,7 +300,7 @@ def jsonpreguntos(request):
     	if callback:
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
-    	
+
     	return HttpResponse(jsonString, content_type='application/json')
 	return HttpResponse('jsonString', content_type='application/json')
 
@@ -319,7 +320,7 @@ def manual_get_topics():
 
 # def observus(request):
 # 	response_data = {}
-# 	if request.method == "OPTIONS": 
+# 	if request.method == "OPTIONS":
 # 		response = HttpResponse()
 # 		response['Access-Control-Allow-Origin'] = '*'
 # 		response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
@@ -330,7 +331,7 @@ def manual_get_topics():
 
 # 	if request.method == 'GET':
 # 		resu=request.GET['quesu']
-		
+
 # 		if resu =="all":
 # 			response_data['result'] = 'Exito'
 # 			response_data['message'] = 'Gracias por Participar'
