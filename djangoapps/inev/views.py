@@ -224,9 +224,12 @@ def manual_get_quests(request):
 	if new == '1':
 		if request.method == 'GET':
 			r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-			#data2 = r.json()
+			data2 = r.json()
             #dataform = str(r.content).strip("'<>() ").replace('\'', '\"')
-			data3 =json2.loads(str(r.content).strip("'<>() ").replace('\'', '\"'))
+			data3 =json2.loads(str(r.content))
+			print r.content
+
+			print repr(str(data3))
 			datok= data3[0]['nombre']
 
 			idpreg=data3[0]['idpregunta']
