@@ -22,4 +22,7 @@ urlpatterns= patterns('djangoapps.inev.views',
 
 	url(r'^getsdata/$','manuals'),
 	url(r'^getquest/$','manual_get_quests'),
+
+	url(r'^jsonmquest/$','jsonmultipleopc'),
+	url(r'^jsonquestion/$','jsonpreguntos'),
 )

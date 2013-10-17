@@ -184,13 +184,13 @@ def make_question(request):
 		tema_id=request.GET['idtema']
 		#user_id=request.GET['idus']
 		#crear pregunta y guardarla
-		useri = User.objects.get(iduser=1)	#iduser
-		topici = Topic.objects.get(idtopic=1)  #idthema
+		useri = User.objects.get(id=1)	#iduser
+		topici = Topic.objects.get(id=1)  #idtopic   era 3
 		preg = Question(name=titu, detail= detall)#, iduser=1, idthema= 1)
 		#nuevo(3):
-		pregu = preg.save(commit=false)
-		pregu.topic = topici
-		pregu.user = useri
+		#pregu = preg.save(commit=false)
+		preg.topic = topici
+		preg.user = useri
 
 						#     if request.method == 'GET':
 						#         f = TopicForm(request.POST)
@@ -201,7 +201,7 @@ def make_question(request):
 						#             t.save()
 
 
-		pregu.save()
+		preg.save()
 		response_data['result'] = 'gracias'
 		# if initial_chon != last_chon :
 		# 	response_data['result'] = 'Exito'
@@ -227,19 +227,81 @@ def manual_get_quests(request):
 			data2 = r.json()
 			data3 =json2.loads(r.content)
 			datok= data3[0]['nombre']
+
+			idpreg=data3[0]['idpregunta']
+			nombrepreg= data3[0]['nombre']
+			#idtema= data3[0]['idtema']
+			idtema= 1
 			#datok= data2[0]['nombre']
 			#datok = len(data2)
+
+			#quest!!!
+			topici = Topic.objects.get(id=idtema)  #idthema
+
+			q=Quest(name=nombrepreg,status=1,id=idpreg)
+			q.topic = topici
+			#multopc = q.save(commit=false)
+			#multopc.topic = topici
+
+			#multopc.save()
+			q.save()
+			#reg = Quest(name=titu, detail= detall)#, iduser=1, idthema= 1)
 			for i in range(len(data2)):
 				if i == 0:
 					print 'no'
 				else:
 					opc1.append(data2[i]['nombre'])
+					idalternativa=data2[i]['idalternativa']
+					nombrealtern=data2[i]['nombre']
+
+					cho=Choice(name=nombrealtern,nchoices=0,id=idalternativa)
+					cho.quest = q
+					cho.save()
 			 		#opc1[i]=data2[i]['nombre']
 
 		jsonString = json2.dumps(data2,sort_keys='nice',indent=4)
+
+		#hacer push! notificacion al celular!!!
 		#datok = jsonString
 	return render_to_response('manual_gets.html', {'pregunta':datok,
 													'opc1':opc1,}) 
+
+def jsonmultipleopc(request):
+	
+	if request.method == 'GET':
+		idquest=request.GET.get('id')
+		questi = Quest.objects.get(id=idquest)
+    	data = questi.json() #for quest in Quest.objects.all().order_by('name')]
+    	nice = 'nice' in request.GET
+
+    	callback = request.GET.get('callback')
+
+    	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+    	if callback:
+        	jsonString = '%s (%s)' %(callback, jsonString)
+        #jsonString = '{%s %s}' %('"events":', jsonString)
+    	
+    	return HttpResponse(jsonString, content_type='application/json')
+	return HttpResponse('jsonString', content_type='application/json')
+
+def jsonpreguntos(request):
+	
+	if request.method == 'GET':
+		idtopicu=request.GET.get('id')
+		topicn = Topic.objects.get(id=idtopicu)
+		#questi = Question.objects.filter(topic=topicn)
+    	data = [questi.json() for questi in Question.objects.filter(topic=topicn)]
+    	nice = 'nice' in request.GET
+
+    	callback = request.GET.get('callback')
+
+    	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+    	if callback:
+        	jsonString = '%s (%s)' %(callback, jsonString)
+        #jsonString = '{%s %s}' %('"events":', jsonString)
+    	
+    	return HttpResponse(jsonString, content_type='application/json')
+	return HttpResponse('jsonString', content_type='application/json')
 
 def manual_get_users():
 

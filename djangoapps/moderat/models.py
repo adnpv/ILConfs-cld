@@ -9,8 +9,10 @@ class Quest(models.Model):
 	#status = models.CharField(max_length=15)
 	def json(self):
 		return {
+			'topicid':self.topic.id,
+			'questid':self.id,
 			'name':self.name,
-			'choices':[choice.json() for choice in Choice.objects.filter(quest.self)]
+			'choices':[choice.json() for choice in Choice.objects.filter(quest=self)]
 		}
 
 	def __unicode__(self):
@@ -22,7 +24,7 @@ class Choice(models.Model):
 	nchoices = models.IntegerField()
 	quest = models.ForeignKey(Quest)
 	def json(self):
-		fields =('name',)
+		fields =('name','id','nchoices',)
 		return dict((field, self.__dict__[field])for field in fields) #armando dict, basado en los campos
 			#attrib, value
 	def __unicode__(self):

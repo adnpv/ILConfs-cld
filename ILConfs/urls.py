@@ -6,8 +6,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 from djangoapps.inev.api import QuestionResource
+from djangoapps.moderat.api import QuestResource, ChoiceResource
 
 question_resource = QuestionResource()
+quest_resource = QuestResource()
+choice_resource = ChoiceResource()
 
 
 urlpatterns = patterns('',
@@ -20,6 +23,7 @@ urlpatterns = patterns('',
     (r'^moder/', include('djangoapps.moderat.urls')),
     (r'^interactiv/', include('djangoapps.inev.urls')),
     (r'^api/', include(question_resource.urls)),
+    (r'^jsoncho/', include(choice_resource.urls)),
     # Examples:
     # url(r'^$', 'ILConfs.views.home', name='home'),
     # url(r'^ILConfs/', include('ILConfs.foo.urls')),

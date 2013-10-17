@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime   
 # Create your models here.
 class Event(models.Model):
-	idevent = models.IntegerField()
+	#idevent = models.IntegerField()
 	name = models.CharField(max_length=200)
 	description = models.TextField()
 	start_date = models.DateField('initial date',default=datetime.now, blank=True)
@@ -30,7 +30,7 @@ class Event(models.Model):
 		return self.name
 
 class Topic(models.Model):
-	idtopic = models.IntegerField()
+	#idtopic = models.IntegerField()
 	event = models.ForeignKey(Event)
 	name = models.CharField(max_length=200)
 	description = models.TextField()

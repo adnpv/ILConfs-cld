@@ -3,7 +3,7 @@ from django.db import models
 from djangoapps.event.models import Event
 
 class User(models.Model):
-	iduser = models.IntegerField(default=1)
+	#iduser = models.IntegerField(default=1)
 	name = models.CharField(max_length=50) #nombre a colocar en el cel.
 	#password = models.CharField(max_length=50)
 	lastname = models.CharField(max_length=50)
