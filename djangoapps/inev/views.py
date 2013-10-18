@@ -224,7 +224,7 @@ def manual_get_quests(request):
 	if new == '1':
 		if request.method == 'GET':
 			r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-			datok=r.content
+			#datok=r.content
 			# data2 = json2.dumps(r.content) #json3.load(r.content)# data2 = r.json()
 			#    #dataform = #str(r.content).strip("'<>() ").replace('\'', '\"')
 			# data3 = json2.loads(data2)#.decode('utf-8')#str(r.content))
@@ -234,52 +234,42 @@ def manual_get_quests(request):
 			# print repr(data3)
 			# datok= data3
 
+			data2 = r.json()
+			data3 =json2.loads(r.content)
+			datok= data3[0]['nombre']
 
+			idpreg=data3[0]['idpregunta']
+			nombrepreg= data3[0]['nombre']
+			#idtema= data3[0]['idtema']
+			idtema= 1
+			#datok= data2[0]['nombre']
+			#datok = len(data2)
 
-		# 	data2 = r.json()
-		# 	#r.json()
-  		    #dataform = str(r.content).strip("'<>() ").replace('\'', '\"')
-		# 	data3 =json2.loads(r.content+'')
-		# 	print repr(r.content)
+			#quest!!!
+			topici = Topic.objects.get(id=idtema)  #idthema
 
-		# 	print repr(data3)
-		# 	print "-----------------------"
-		# 	print  data2
-		# 	print "-----------------------"
-		# 	datok= data3[0]['nombre']
+			q=Quest(name=nombrepreg,status=1,id=idpreg)
+			q.topic = topici
+			#multopc = q.save(commit=false)
+			#multopc.topic = topici
 
-		# 	idpreg=data3[0]['idpregunta']
-		# 	nombrepreg= data3[0]['nombre']
-		# 	#idtema= data3[0]['idtema']
-		# 	idtema= 1
-		# 	#datok= data2[0]['nombre']
-		# 	#datok = len(data2)
+			#multopc.save()
+			q.save()
+			#reg = Quest(name=titu, detail= detall)#, iduser=1, idthema= 1)
+			for i in range(len(data3)):#antes 2
+				if i == 0:
+					print 'no'
+				else:
+					opc1.append(data3[i]['nombre'])#antes2
+					idalternativa=data3[i]['idalternativa']
+					nombrealtern=data3[i]['nombre']
 
-		# 	#quest!!!
-		# 	topici = Topic.objects.get(id=idtema)  #idthema
+					cho=Choice(name=nombrealtern,nchoices=0,id=idalternativa)
+					cho.quest = q
+					cho.save()
+			 		#opc1[i]=data2[i]['nombre']
 
-		# 	q=Quest(name=nombrepreg,status=1,id=idpreg)
-		# 	q.topic = topici
-		# 	#multopc = q.save(commit=false)
-		# 	#multopc.topic = topici
-
-		# 	#multopc.save()
-		# 	q.save()
-		# 	#reg = Quest(name=titu, detail= detall)#, iduser=1, idthema= 1)
-		# 	for i in range(len(data3)):#antes 2
-		# 		if i == 0:
-		# 			print 'no'
-		# 		else:
-		# 			opc1.append(data3[i]['nombre'])#antes2
-		# 			idalternativa=data3[i]['idalternativa']
-		# 			nombrealtern=data3[i]['nombre']
-
-		# 			cho=Choice(name=nombrealtern,nchoices=0,id=idalternativa)
-		# 			cho.quest = q
-		# 			cho.save()
-		# 	 		#opc1[i]=data2[i]['nombre']
-
-		# jsonString = json2.dumps(data3,sort_keys='nice',indent=4)
+		jsonString = json2.dumps(data3,sort_keys='nice',indent=4)
 
 		#hacer push! notificacion al celular!!!
 		#datok = jsonString
