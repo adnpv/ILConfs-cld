@@ -5,8 +5,8 @@ from djangoapps.userp.models import User
 
 # Create your models here.
 class Question(models.Model):#preguntas a expositor
-	name = models.CharField(max_length=50)
-	detail = models.CharField(max_length=50, null=True, blank=True)
+	name = models.CharField(max_length=100)
+	detail = models.CharField(max_length=250, null=True, blank=True)
 	#iduser = models.IntegerField()
 	#idtopic = models.IntegerField(default=1)
 	user = models.ForeignKey(User)
@@ -16,7 +16,8 @@ class Question(models.Model):#preguntas a expositor
 			'idpreg':self.id,
 			'nombre':self.name,
 			'detalle':self.detail,
-			'usuarioid':self.user.id #,
+			'usuarioid':self.user.id,
+			'temaid':self.topic.id #,
 			#'temaid':self.topic.id
 		}
 	def __unicode__(self):
