@@ -3,3 +3,5 @@
 ILConfs.iml
 nbproject/
 *~
+venv
+staticfiles

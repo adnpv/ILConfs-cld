@@ -2,6 +2,8 @@
 import os
 
 import django
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -16,15 +18,6 @@ dbsqlite= BASE +'/ilconf.db'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',#'sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'adnp$inevents',#'ilconf.db',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': 'adnp',
-        'PASSWORD': 'admin1$_%',
-        'HOST': 'mysql.server',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    },
-    'local': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': dbsqlite,                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
@@ -32,19 +25,22 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
-    }
+    }    
 }
-default_database = 'default'
-if os.getenv('DJANGO_DATABASE') == 'local' :
-    default_database = os.environ.get('DJANGO_DATABASE', 'main')
 
-DATABASES['default'] = DATABASES[default_database]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# default_database = 'default'
+# if os.getenv('DJANGO_DATABASE') == 'local' :
+#     default_database = os.environ.get('DJANGO_DATABASE', 'main')
+
+#DATABASES['default'] = DATABASES[default_database]
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
-
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -70,8 +66,10 @@ USE_TZ = True
 
 
 #SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
@@ -85,7 +83,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '' 
+STATIC_ROOT = 'staticfiles' 
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -94,6 +92,7 @@ STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
     os.path.join(SITE_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
