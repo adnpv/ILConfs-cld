@@ -130,6 +130,9 @@ def quest(request):
 	if request.method == 'GET':
 		r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
 		data2 = r.json()
+	print data2
+	print "--------------------------------"
+	print data
 		#data2 = json2.load(r.json())
 
 	#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
@@ -282,11 +285,10 @@ def jsonmultipleopc(request):
 		idquest=request.GET.get('id')
 		questi = Quest.objects.get(id=idquest)
     	data = questi.json() #for quest in Quest.objects.all().order_by('name')]
-    	nice = 'nice' in request.GET
-
+    	
     	callback = request.GET.get('callback')
 
-    	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+    	jsonString = json2.dumps(data,sort_keys="nice",indent=4)
     	if callback:
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
@@ -301,17 +303,15 @@ def jsonpreguntos(request):
 		topicn = Topic.objects.get(id=idtopicu)
 		#questi = Question.objects.filter(topic=topicn)
     	data = [questi.json() for questi in Question.objects.filter(topic=topicn)]
-    	nice = 'nice' in request.GET
 
     	callback = request.GET.get('callback')
 
-    	jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+    	jsonString = json2.dumps(data,sort_keys='nice',indent=4)
     	if callback:
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
 
-    	return HttpResponse(jsonString, content_type='application/json')
-	return HttpResponse('jsonString', content_type='application/json')
+    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 def manual_get_users():
 
