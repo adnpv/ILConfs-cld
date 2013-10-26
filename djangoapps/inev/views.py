@@ -283,7 +283,10 @@ def jsonmultipleopc(request):
 
 	if request.method == 'GET':
 		idquest=request.GET.get('id')
-		questi = Quest.objects.get(id=idquest)
+		topico=request.GET.get('top')
+		topicu = Topic.objects.get(id=topico)
+
+		questi = Quest.objects.get(id=idquest,topic=topicu)
     	data = questi.json() #for quest in Quest.objects.all().order_by('name')]
     	
     	callback = request.GET.get('callback')

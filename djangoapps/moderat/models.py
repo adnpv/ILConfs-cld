@@ -11,7 +11,6 @@ class Quest(models.Model):
 		return {
 			'topicid':self.topic.id,
 			'questid':self.id,
-			'name':self.name,
 			'choices':[choice.json() for choice in Choice.objects.filter(quest=self)]
 		}
 
@@ -24,7 +23,7 @@ class Choice(models.Model):
 	nchoices = models.IntegerField()
 	quest = models.ForeignKey(Quest)
 	def json(self):
-		fields =('name','id','nchoices',)
+		fields =('id','nchoices',)
 		return dict((field, self.__dict__[field])for field in fields) #armando dict, basado en los campos
 			#attrib, value
 	def __unicode__(self):
