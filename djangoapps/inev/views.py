@@ -187,7 +187,7 @@ def make_question(request):
 		tema_id=request.GET['idtema']
 		#user_id=request.GET['idus']
 		#crear pregunta y guardarla
-		useri = User.objects.get(id=1)	#iduser
+		useri = User.objects.get(id=7)	#iduser
 		topici = Topic.objects.get(id=1)  #idtopic   era 3
 		preg = Question(name=titu, detail= detall)#, iduser=1, idthema= 1)
 		#nuevo(3):
