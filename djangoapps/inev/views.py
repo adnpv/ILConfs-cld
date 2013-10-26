@@ -11,7 +11,7 @@ from django.utils import simplejson as json2
 from django.core import serializers
 
 import requests
-
+# -*- coding: utf-8 -*-
 #resolv multiple choice
 def answer(request):
 	response_data = {}
@@ -293,7 +293,7 @@ def jsonmultipleopc(request):
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
 
-    	return HttpResponse(jsonString, content_type='application/json')
+    	return HttpResponse(jsonString, content_type="text/html; charset=utf-8")#content_type='application/json', charset=utf-8)
 	return HttpResponse('jsonString', content_type='application/json')
 
 def jsonpreguntos(request):
@@ -311,7 +311,14 @@ def jsonpreguntos(request):
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
 
-    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+    	return HttpResponse(jsonString, content_type="text/html; charset=utf-8")
+
+
+
+def datafrommyserver(request):
+	r = requests.get('https://pietreal.herokuapp.com//interactiv/jsonmquest/?id=2')
+	datok=r.content
+	return HttpResponse(datok)
 
 def manual_get_users():
 
