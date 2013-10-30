@@ -17,5 +17,13 @@ class Ticket(models.Model):
 	event = models.ForeignKey(Event)
 	#idevent = models.IntegerField()	#no todo dato, solo pedir el id evento y que usuarios estan en el.
 	#validar el usuario(id)
+	def json(self):
+		return {
+			'idevent':self.event.id,
+			'codauth':self.ticket_num
+		}
+	def __unicode__(self):
+		tname = "Usuario: "+self.user.name + ", Evento:"+ self.event.name
+ 		return tname
 	    
 # Create your models here.

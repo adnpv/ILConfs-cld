@@ -14,7 +14,7 @@ try:
 except AttributeError:
     XS_SHARING_ALLOWED_ORIGINS = '*' #
     XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE'] #
-    XS_SHARING_ALLOWED_HEADERS = ['Content-Type', '*']
+    XS_SHARING_ALLOWED_HEADERS = ['Content-Type','X-CSRFToken', 'origin' , '*']
     XS_SHARING_ALLOWED_CREDENTIALS = 'true'
 
 

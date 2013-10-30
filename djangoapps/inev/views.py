@@ -1,4 +1,4 @@
-
+﻿
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -78,7 +78,7 @@ def responder_de_web(request): #traer data y hacer push en mobil
 
 		r=requests.get('https://github.com/timeline.json')
 		data2 = r.json()
-		#data = json2.dumps(data2,sort_keys='nice',indent=4)
+		#data = json2.dumps(data2,indent=4) #sort_keys='nice',
 	#print data
 	return HttpResponse(json2.dumps(data2), mimetype="application/json")
 
@@ -108,7 +108,7 @@ def get_choices(request):
 			response_data['message'] = 'Su Votacion no se conto'
 
 
-	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
+	jsonString = json2.dumps(result,indent=4) #sort_keys='nice',
 
 	return HttpResponse(jsonString, content_type='application/json')
 
@@ -117,6 +117,7 @@ def event(request,event_id=1):
 								{'event':Event.objects.get(id=event_id),})
 
 
+#SACARLA DE DB LAS PREGUNTAS
 #traer data de php.
 def quest(request):
 	que=request.GET.get('que')
@@ -136,7 +137,7 @@ def quest(request):
 		#data2 = json2.load(r.json())
 
 	#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
-	jsonString = json2.dumps(data2,sort_keys='nice',indent=4)
+	jsonString = json2.dumps(data2,indent=4) #sort_keys='nice',
 	# if que:
 	# 	jsonString = '%s (%s)' %('?', jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
@@ -172,7 +173,7 @@ def dausprueba(request):
 			response_data['message'] = 'Su Votacion no se conto'
 
 
-	jsonString = json2.dumps(result,sort_keys='nice',indent=4)
+	jsonString = json2.dumps(result,indent=4) #sort_keys='nice',
 
 	return HttpResponse(jsonString, content_type='application/json')
 
@@ -262,7 +263,7 @@ def manual_get_quests(request):
 			for i in range(len(data3)):#antes 2
 				if i == 0:
 					print 'no'
-				else:
+				else: 
 					opc1.append(data3[i]['nombre'])#antes2
 					idalternativa=data3[i]['idalternativa']
 					nombrealtern=data3[i]['nombre']
@@ -272,7 +273,7 @@ def manual_get_quests(request):
 					cho.save()
 			 		#opc1[i]=data2[i]['nombre']
 
-		jsonString = json2.dumps(data3,sort_keys='nice',indent=4)
+		jsonString = json2.dumps(data3,indent=4) #sort_keys='nice',
 
 		#hacer push! notificacion al celular!!!
 		#datok = jsonString
@@ -309,7 +310,7 @@ def jsonpreguntos(request):
 
     	callback = request.GET.get('callback')
 
-    	jsonString = json2.dumps(data,sort_keys='nice',indent=4)
+    	jsonString = json2.dumps(data,indent=4) #sort_keys='nice',
     	if callback:
         	jsonString = '%s (%s)' %(callback, jsonString)
         #jsonString = '{%s %s}' %('"events":', jsonString)
@@ -336,6 +337,52 @@ def manual_get_topics():
 
 	return HttpResponse(jsonString, content_type='application/json')
 
+
+
+def insert_quests(request):
+	response_data = {}
+
+	# if request.method == 'GET':
+	# 	username=request.GET.get('username')
+	# 	password=request.GET.get('password')
+	# 	print username,password
+	# # 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+	# 	payload ={'user': username,'password':password }
+		
+	# #	r=requests.post('http://pitreal.hostei.com/eventos/', data = payload)#,'usernami' = username)
+	# 	r=requests.get('http://localhost:8000/user/petic/', params = payload)#,'usernami' = username)
+
+	# 	#data2 = r.json()
+	#  	data3 =json2.loads(r.content)
+
+	# 	nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
+	# 	userid = data3['userid']
+	# 	apellido = data3['apellido']
+	# 	#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
+	# 	#nuevou = User(id=userid,name=nombre,lastname=apellido)
+
+	# 	#validar asignacion solo si existe
+	# 	usuario = User.objects.get(id=userid)
+
+	# 	eventos = data3['events']
+	# 	#print repr(eventos[1])
+	# 	for i in range(len(eventos)):#antes 2
+	# 		idevento = eventos[i]['idevent']
+	# 		evento = Event.objects.get(id=idevento)
+
+	# 		codigoauth = eventos[i]['codauth']
+	# 		#print type(codigoauth)	
+	# 		ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
+	# 		#ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
+
+	# 	response_data['nombre']= nombre
+	# 	response_data['apellido']= apellido
+	# 	response_data['userid']= userid
+	jsonString = json2.dumps(response_data,indent=4)
+
+	# #hacer push! notificacion al celular!!!
+	# #datok = jsonString
+	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 # def observus(request):
 # 	response_data = {}

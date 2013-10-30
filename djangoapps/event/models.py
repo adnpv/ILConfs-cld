@@ -17,8 +17,20 @@ class Event(models.Model):
 
 
 	def json(self):
+		descri = (self.description).split(' ')[0:20]
+		descro = ' '.join(descri)#str(x) for x in list_of_ints
 		return {
-			'name':self.name
+			'idev': self.id,
+			'name':self.name,
+			'desc': descro,
+		}
+	def jsondetalle(self):
+		return {
+			'idev': self.id,
+			'name':self.name,
+			'desc':self.description,
+			'inicio':self.start_date,
+			'lugar':self.location,
 		}
 
 	'''class Meta:
