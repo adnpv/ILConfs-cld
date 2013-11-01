@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+﻿from django.http import HttpResponse
 
 #from django.template.loader import get_template #ver carpeta templates
 #from django.template import Context #paso datos(grupos)
@@ -69,44 +69,94 @@ def jsonevent2(request):
 def insert_events(request):
     response_data = {}
 
-#     if request.method == 'GET':
-#         username=request.GET.get('username')
-#         password=request.GET.get('password')
-#         print username,password
-#     #   #r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-#         payload ={'user': username,'password':password }
+    if request.method == 'GET':
+        #data3 =json2.loads(request)
+
+        nombre= request.GET.get('name')# [{'datok'}] (son arreglos y se antepone un [0])
+        idevento = request.GET.get('idevento')
+        descripcion = request.GET.get('descripcion')
+        #start_date = data3['start_date']    #pasar año, mes y dia (armarlo aca)
+        #end_date = data3['end_date']
+        lugar = request.GET.get('lugar')
+        latitud = request.GET.get('latitud')
+        longitud = request.GET.get('longitud')
+        estado = request.GET.get('estado')
+        likes = request.GET.get('likes')
+        organizador = request.GET.get('organizador')
+        #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
+        eventu = Event(id=idevento, name = nombre,
+                        description = descripcion,
+                        #start_date = ,end_date = , 
+                        location = lugar,latitude = latitud, 
+                        longitude = longitud, status = estado,
+                        likes = likes,organizer = organizador)
+        eventu.save()
+        if eventu.idevento != 0 :
+            response_data['resultado']= "ok"
+        else:
+            response_data['resultado']= "no"
         
-#     #   r=requests.post('http://pitreal.hostei.com/eventos/', data = payload)#,'usernami' = username)
-#         r=requests.get('http://localhost:8000/user/petic/', params = payload)#,'usernami' = username)
-
-#         #data2 = r.json()
-#         data3 =json2.loads(r.content)
-
-#         nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
-#         userid = data3['userid']
-#         apellido = data3['apellido']
-#         #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
-#         #nuevou = User(id=userid,name=nombre,lastname=apellido)
-
-#         #validar asignacion solo si existe
-#         usuario = User.objects.get(id=userid)
-
-#         eventos = data3['events']
-#         #print repr(eventos[1])
-#         for i in range(len(eventos)):#antes 2
-#             idevento = eventos[i]['idevent']
-#             evento = Event.objects.get(id=idevento)
-
-#             codigoauth = eventos[i]['codauth']
-#             #print type(codigoauth) 
-#             ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
-#             #ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
-
-#         response_data['nombre']= nombre
-#         response_data['apellido']= apellido
-#         response_data['userid']= userid
-    jsonString = json2.dumps(response_data,indent=4)
+    jsonString = json.dumps(response_data,indent=4)
 
 #     #hacer push! notificacion al celular!!!
 #     #datok = jsonString
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+def insert_topics(request):
+    response_data = {}
+
+    if request.method == 'GET':
+        #data3 =json2.loads(request)
+
+        idevento = request.GET.get('idevento')
+        idtema = request.GET.get('idtema')
+        nombre= request.GET.get('nombre')# [{'datok'}] (son arreglos y se antepone un [0])
+        description = request.GET.get('descripcion')
+        #start_hour = data3['start_hour'] #hora min (armarlo aca)
+        #end_hour = data3['end_hour']
+        room = request.GET.get('sala')
+        likes = request.GET.get('likes')
+        eventu = Event.objects.get(id=idevento)
+        #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
+        topict = Event(id=idtema, event= eventu,name = nombre,
+                        description = description,
+                        #start_hour = start_hour,end_hour = end_hour, 
+                        room = room, likes = likes)
+        topict.save()
+        if topict.idtema != 0 :
+            response_data['resultado']= "ok"
+        else :
+            response_data['resultado']= "no"
+        
+    jsonString = json.dumps(response_data,indent=4)
+
+#     #hacer push! notificacion al celular!!!
+#     #datok = jsonString
+    return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+
+
+
+def detalle_event(request):
+    eventos = {}
+    data = []
+    if request.method == 'GET':
+        evid=int(request.GET.get('idevento'))
+        evento = Event.objects.get(id=evid)
+        data = evento.jsondetalle()
+
+    jsonString = json.dumps(data,indent=4)
+    return HttpResponse(jsonString, content_type='application/json')
+
+
+def temas_evento(request):
+    eventos = {}
+    data = []
+    if request.method == 'GET':
+        evid=int(request.GET.get('idevento'))
+        evento = Event.objects.get(id=evid)
+        for tema in Topic.objects.filter(event=evento):
+            data.append(tema.json())
+
+    jsonString = json.dumps(data,indent=4)
+    return HttpResponse(jsonString, content_type='application/json')

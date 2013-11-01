@@ -342,42 +342,34 @@ def manual_get_topics():
 def insert_quests(request):
 	response_data = {}
 
-	# if request.method == 'GET':
-	# 	username=request.GET.get('username')
-	# 	password=request.GET.get('password')
-	# 	print username,password
-	# # 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-	# 	payload ={'user': username,'password':password }
+	if request.method == 'GET':
+
+	 	#data3 =json2.loads(request.content)
+
+	 	#topicid= data3['temaid']
+	 	#topicid= request.GET.get('temaid')
+		topicu = Topic.objects.get(id=topicid)
+
+		pregid = request.GET.get('preguntaid')
+		name= request.GET.get('nombre') # [{'datok'}] (son arreglos y se antepone un [0])
+		status= request.GET.get('estado')
+
+		pregu = Quest(id= pregid,topic = topicu, name = name, status = status)
+
+		pregu.save()
+		#validar asignacion solo si existe
 		
-	# #	r=requests.post('http://pitreal.hostei.com/eventos/', data = payload)#,'usernami' = username)
-	# 	r=requests.get('http://localhost:8000/user/petic/', params = payload)#,'usernami' = username)
 
-	# 	#data2 = r.json()
-	#  	data3 =json2.loads(r.content)
+		opcs = request.GET.get('opciones')
+		#print repr(eventos[1])
+		for i in range(len(opcs)):#antes 2
+			idopc = opcs[i]['idopc']
+			nombreopc = opcs[i]['nombreopc']
+			cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
+			cho.save()
 
-	# 	nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
-	# 	userid = data3['userid']
-	# 	apellido = data3['apellido']
-	# 	#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
-	# 	#nuevou = User(id=userid,name=nombre,lastname=apellido)
+		response_data['resultado']= "ok"
 
-	# 	#validar asignacion solo si existe
-	# 	usuario = User.objects.get(id=userid)
-
-	# 	eventos = data3['events']
-	# 	#print repr(eventos[1])
-	# 	for i in range(len(eventos)):#antes 2
-	# 		idevento = eventos[i]['idevent']
-	# 		evento = Event.objects.get(id=idevento)
-
-	# 		codigoauth = eventos[i]['codauth']
-	# 		#print type(codigoauth)	
-	# 		ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
-	# 		#ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
-
-	# 	response_data['nombre']= nombre
-	# 	response_data['apellido']= apellido
-	# 	response_data['userid']= userid
 	jsonString = json2.dumps(response_data,indent=4)
 
 	# #hacer push! notificacion al celular!!!

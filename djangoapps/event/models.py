@@ -29,8 +29,9 @@ class Event(models.Model):
 			'idev': self.id,
 			'name':self.name,
 			'desc':self.description,
-			'inicio':self.start_date,
+			#'inicio':self.start_date,
 			'lugar':self.location,
+			'org':self.organizer,
 		}
 
 	'''class Meta:
@@ -46,10 +47,25 @@ class Topic(models.Model):
 	event = models.ForeignKey(Event)
 	name = models.CharField(max_length=200)
 	description = models.TextField()
-	start_hour = models.TimeField('Hora de Inicio')
-	end_hour = models.TimeField('Hora de Fin')
+	start_hour = models.TimeField('Hora de Inicio')#modificar a default = ahora
+	end_hour = models.TimeField('Hora de Fin')#modificar a default = ahora
 	room = models.CharField(max_length=300)
 	likes = models.IntegerField()
+
+	def json(self):
+		return {
+			'idev': self.id,
+			'name':self.name,
+		}
+
+	def jsondetalle(self):
+		return {
+			'idtem': self.id,
+			'name':self.name,
+			'desc':self.description,
+			#'h_inicio':self.start_hour,
+			'room':self.room,
+		}	
 
 	def __unicode__(self):
 		return self.name

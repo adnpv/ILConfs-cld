@@ -43,15 +43,25 @@ def login(request):
 	# 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
 		payload ={'user': username,'password':password }
 		
-	#	r=requests.post('http://pitreal.hostei.com/eventos/', data = payload)#,'usernami' = username)
+		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
 		r=requests.get('http://localhost:8000/user/petic/', params = payload)#,'usernami' = username)
 
 		#data2 = r.json()
+		print "recepcion:"
+		print r.content
+		print "recepcion fin"
 	 	data3 =json2.loads(r.content)
 
+	 	#nombre= data3[0]['nombres']# [{'datok'}] (son arreglos y se antepone un [0])
+		#userid = data3[0]['idusuario']
+		#apellido = data3[0]['apepad']
+	 	#CAMBIADO ENRIQUE!!!!!!--------------------------------------------------
 		nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
 		userid = data3['userid']
 		apellido = data3['apellido']
+
+
+
 		#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
 		#nuevou = User(id=userid,name=nombre,lastname=apellido)
 
