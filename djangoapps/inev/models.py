@@ -5,8 +5,8 @@ from djangoapps.userp.models import User
 
 # Create your models here.
 class Question(models.Model):#preguntas a expositor
-	name = models.CharField(max_length=100)
-	detail = models.CharField(max_length=400, null=True, blank=True)
+	name = models.CharField(max_length=300)
+	detail = models.CharField(max_length=500, null=True, blank=True)
 	#iduser = models.IntegerField()
 	#idtopic = models.IntegerField(default=1)
 	user = models.ForeignKey(User)

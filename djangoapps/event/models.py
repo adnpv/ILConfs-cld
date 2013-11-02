@@ -8,8 +8,8 @@ class Event(models.Model):
 	start_date = models.DateField('initial date',default=datetime.now, blank=True)
 	end_date = models.DateField('end date',default=datetime.now, blank=True)
 	location = models.CharField(max_length=300)
-	latitude = models.DecimalField(max_digits=9, decimal_places=6)
-	longitude = models.DecimalField(max_digits=9, decimal_places=6)
+	latitude = models.DecimalField(max_digits=9, decimal_places=8)
+	longitude = models.DecimalField(max_digits=9, decimal_places=8)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
 	likes = models.IntegerField()	#destacado
@@ -29,7 +29,7 @@ class Event(models.Model):
 			'idev': self.id,
 			'name':self.name,
 			'desc':self.description,
-			#'inicio':self.start_date,
+			'inicio':str(self.start_date),
 			'lugar':self.location,
 			'org':self.organizer,
 		}
@@ -47,8 +47,8 @@ class Topic(models.Model):
 	event = models.ForeignKey(Event)
 	name = models.CharField(max_length=200)
 	description = models.TextField()
-	start_hour = models.TimeField('Hora de Inicio')#modificar a default = ahora
-	end_hour = models.TimeField('Hora de Fin')#modificar a default = ahora
+	start_hour = models.TimeField('Hora de Inicio', default=datetime.now().time)#modificar a default = ahora
+	end_hour = models.TimeField('Hora de Fin',default=datetime.now().time)#modificar a default = ahora
 	room = models.CharField(max_length=300)
 	likes = models.IntegerField()
 
@@ -63,7 +63,7 @@ class Topic(models.Model):
 			'idtem': self.id,
 			'name':self.name,
 			'desc':self.description,
-			#'h_inicio':self.start_hour,
+			'h_inicio':str(elf.start_hour),
 			'room':self.room,
 		}	
 
