@@ -141,3 +141,31 @@ def eventos_user(request):
 	return HttpResponse(jsonString, content_type='application/json')
 
 
+
+def nuevo_evento_user(request):
+	# debe recivir data de php y enviar un gcm push al mobil / apn tambien!!!
+
+	eventos = {}
+	data = []
+	if request.method == 'GET':
+		userid=request.GET.get('idusuario')
+		eventid=request.GET.get('idevento')
+		codauth=request.GET.get('codigohabilitacion')
+		usuario = User.objects.get(id=userid)
+		evento = Event.objects.get(id=eventid)
+		tick = Ticket(user=usuario,ticket_num=codauth, event=evento)
+		tick.save()
+		#enviar gcm!!!! a mobil!
+
+	eventos['result'] = 'ok'
+	jsonString = json2.dumps(eventos,indent=4)
+	return HttpResponse(jsonString, content_type='application/json')
+
+def send_new_ticke(request):
+	payload ={'idusuario': 1,'idevento':22, 'codigohabilitacion':1564 }
+	r=requests.get('http://localhost:8000/user/newtic/', params = payload)#,'usernami' = username)
+	#data = json2.loads(r.content)
+	#jsonString = json2.dumps(data,indent=4)
+	jsonString = r.content
+	return HttpResponse(jsonString, content_type='application/json')
+

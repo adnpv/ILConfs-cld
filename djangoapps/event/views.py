@@ -72,26 +72,44 @@ def insert_events(request):
     if request.method == 'GET':
         #data3 =json2.loads(request)
 
-        nombre= request.GET.get('name')# [{'datok'}] (son arreglos y se antepone un [0])
+        
         idevento = request.GET.get('idevento')
-        descripcion = request.GET.get('descripcion')
+        nombre= request.GET.get('nombre')# [{'datok'}] (son arreglos y se antepone un [0])
+        start_date = request.GET.get('fechainicio')
+        #arrinicio = start_date.split('-',3)
+
+        end_date = request.GET.get('fechafin')
+        start_hour = request.GET.get('horainicio')
+        end_hour = request.GET.get('horafin')
+
+        #??????descripcion = request.GET.get('descripcion')#?????????????
         #start_date = data3['start_date']    #pasar año, mes y dia (armarlo aca)
         #end_date = data3['end_date']
         lugar = request.GET.get('lugar')
         latitud = request.GET.get('latitud')
         longitud = request.GET.get('longitud')
-        estado = request.GET.get('estado')
-        likes = request.GET.get('likes')
-        organizador = request.GET.get('organizador')
+
+        #destacado = request.GET.get('destacado')
+        #estado = request.GET.get('estado')
+
+        #organizador = request.GET.get('organizador')# idusuario
+        #likes = request.GET.get('likes')
+
+        descripcion ="evento traido"
+        estado=0
+        likes=1
+        organizador ="SHO"
+
         #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
         eventu = Event(id=idevento, name = nombre,
                         description = descripcion,
-                        #start_date = ,end_date = , 
+                        start_date = start_date,end_date = end_date, 
+                        start_hour = start_hour,end_hour = end_hour, 
                         location = lugar,latitude = latitud, 
                         longitude = longitud, status = estado,
-                        likes = likes,organizer = organizador)
+                        likes = likes, organizer = organizador)
         eventu.save()
-        if eventu.idevento != 0 :
+        if eventu.id != 0 :
             response_data['resultado']= "ok"
         else:
             response_data['resultado']= "no"
@@ -111,19 +129,25 @@ def insert_topics(request):
         idevento = request.GET.get('idevento')
         idtema = request.GET.get('idtema')
         nombre= request.GET.get('nombre')# [{'datok'}] (son arreglos y se antepone un [0])
-        description = request.GET.get('descripcion')
+        description = 'temaa'#request.GET.get('descripcion')
+        start_hour = request.GET.get('horainicio')
+        end_hour = request.GET.get('horafin')
+        
         #start_hour = data3['start_hour'] #hora min (armarlo aca)
         #end_hour = data3['end_hour']
-        room = request.GET.get('sala')
-        likes = request.GET.get('likes')
+
+        room = "no definida"    #request.GET.get('sala')
+        likes = 3   #request.GET.get('likes')
+        status = 0
         eventu = Event.objects.get(id=idevento)
         #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
-        topict = Event(id=idtema, event= eventu,name = nombre,
+        topict = Topic(id=idtema, event= eventu,name = nombre,
                         description = description,
-                        #start_hour = start_hour,end_hour = end_hour, 
-                        room = room, likes = likes)
+                        start_hour = start_hour,end_hour = end_hour, 
+                        room = room, likes = likes, status = status)
         topict.save()
-        if topict.idtema != 0 :
+        if topict.id != 0 :
+            response_data['detalle'] = topict.jsondetalle()
             response_data['resultado']= "ok"
         else :
             response_data['resultado']= "no"

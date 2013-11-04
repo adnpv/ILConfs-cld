@@ -20,7 +20,7 @@ dbsqlite= BASE +'/ilconf.db'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'd7dv2djc3u34fd',                      # Or path to database file if using sqlite3.
+        'NAME': '',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -37,6 +37,8 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }    
 }
+GCM_APIKEY = "<api_key>"
+
 DATABASES['default'] =  dj_database_url.config()
 #DATABASES['default'] =  dj_database_url.config()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -180,6 +182,7 @@ INSTALLED_APPS = (
     'djangoapps.userp',
     'south',
     'tastypie',
+    'gcm',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -5,15 +5,20 @@ class Event(models.Model):
 	#idevent = models.IntegerField()
 	name = models.CharField(max_length=200)
 	description = models.TextField()
+	organizer = models.CharField(max_length=50)
 	start_date = models.DateField('initial date',default=datetime.now, blank=True)
 	end_date = models.DateField('end date',default=datetime.now, blank=True)
+	start_hour = models.TimeField('Hora de Inicio', default=datetime.now().time)
+	end_hour = models.TimeField('Hora de Fin',default=datetime.now().time)
+
 	location = models.CharField(max_length=300)
-	latitude = models.DecimalField(max_digits=9, decimal_places=8)
-	longitude = models.DecimalField(max_digits=9, decimal_places=8)
+	latitude = models.DecimalField(max_digits=15, decimal_places=8)
+	longitude = models.DecimalField(max_digits=15, decimal_places=8)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
 	likes = models.IntegerField()	#destacado
-	organizer = models.CharField(max_length=50)
+
+
 
 
 	def json(self):
@@ -51,6 +56,7 @@ class Topic(models.Model):
 	end_hour = models.TimeField('Hora de Fin',default=datetime.now().time)#modificar a default = ahora
 	room = models.CharField(max_length=300)
 	likes = models.IntegerField()
+	status = models.IntegerField() #no iniciado, iniciado, finalizado, ronda preg.
 
 	def json(self):
 		return {
@@ -63,7 +69,7 @@ class Topic(models.Model):
 			'idtem': self.id,
 			'name':self.name,
 			'desc':self.description,
-			'h_inicio':str(elf.start_hour),
+			'h_inicio':str(self.start_hour),
 			'room':self.room,
 		}	
 

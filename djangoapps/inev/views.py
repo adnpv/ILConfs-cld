@@ -1,5 +1,5 @@
 ﻿
-
+from ast import literal_eval as lit
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from djangoapps.moderat.models import Quest, Choice
@@ -11,6 +11,8 @@ from django.utils import simplejson as json2
 from django.core import serializers
 
 import requests
+from gcm.models import Device
+
 # -*- coding: utf-8 -*-
 #resolv multiple choice
 def answer(request):
@@ -93,7 +95,7 @@ def get_choices(request):
 
 
 	if request.method == 'GET':
-		callback = request.GET.get('callback')
+		callback = data3['callback']
 		pre=request.GET['query']
 
 		if pre == "all":
@@ -306,16 +308,21 @@ def jsonpreguntos(request):
 		idtopicu=request.GET.get('id')
 		topicn = Topic.objects.get(id=idtopicu)
 		#questi = Question.objects.filter(topic=topicn)
-    	data = [questi.json() for questi in Question.objects.filter(topic=topicn)]
+		data = [questi.json() for questi in Question.objects.filter(topic=topicn)]
 
-    	callback = request.GET.get('callback')
+		for questi in Question.objects.filter(topic=topicn):
+			questi.delete() 
 
-    	jsonString = json2.dumps(data,indent=4) #sort_keys='nice',
-    	if callback:
-        	jsonString = '%s (%s)' %(callback, jsonString)
-        #jsonString = '{%s %s}' %('"events":', jsonString)
+		#my_phone = Device.objects.get(name='My phone')
+		#my_phone.send_message('my test message')
+		callback = request.GET.get('callback')
 
-    	return HttpResponse(jsonString, content_type="text/html; charset=utf-8")
+		jsonString = json2.dumps(data,indent=4) #sort_keys='nice',
+		if callback:
+			jsonString = '%s (%s)' %(callback, jsonString)
+		#jsonString = '{%s %s}' %('"events":', jsonString)
+
+		return HttpResponse(jsonString, content_type="text/html; charset=utf-8")
 
 
 
@@ -341,18 +348,28 @@ def manual_get_topics():
 
 def insert_quests(request):
 	response_data = {}
-
+	data3 = {}
 	if request.method == 'GET':
+		#print json2.loads(request.GET) #.GET['']
+		#print request.GET.getlist('alternativas')
+		#preg = request.GET.getlist('alternativas')
+		#for o in preg:
+		#	print o
+		mydict = dict(request.GET.iterlists())
+		for keys,values in mydict.items():
+			data3 = lit(keys)
 
+		# print "rawwwwwwww"
 	 	#data3 =json2.loads(request.content)
 
-	 	#topicid= data3['temaid']
-	 	#topicid= request.GET.get('temaid')
+	 	topicid= data3["idtema"]
+	 	#topicid= request.GET.get('idtema')
+	 	print topicid
 		topicu = Topic.objects.get(id=topicid)
 
-		pregid = request.GET.get('preguntaid')
-		name= request.GET.get('nombre') # [{'datok'}] (son arreglos y se antepone un [0])
-		status= request.GET.get('estado')
+		pregid = data3['idpregunta']
+		name= data3['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
+		status= data3['estado']
 
 		pregu = Quest(id= pregid,topic = topicu, name = name, status = status)
 
@@ -360,11 +377,11 @@ def insert_quests(request):
 		#validar asignacion solo si existe
 		
 
-		opcs = request.GET.get('opciones')
-		#print repr(eventos[1])
+		opcs = data3['alternativas']
+		# #print repr(eventos[1])
 		for i in range(len(opcs)):#antes 2
-			idopc = opcs[i]['idopc']
-			nombreopc = opcs[i]['nombreopc']
+			idopc = opcs[i]['idalternativa']
+			nombreopc = opcs[i]['nombre']
 			cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
 			cho.save()
 
@@ -375,6 +392,49 @@ def insert_quests(request):
 	# #hacer push! notificacion al celular!!!
 	# #datok = jsonString
 	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+
+def enviar_quest_nueva(request):
+	response_data = {}
+
+	if request.method == 'GET':
+		payload ={"idpregunta": 3,
+		"idtema":1,
+		"nombre":"esta es una preguntita",
+		"estado": 0,
+		"alternativas":[{"idalternativa":10,
+		"nombre":"Internet Explorer"},
+		{"idalternativa":11,
+		"nombre":"Firefox"},
+		{"idalternativa":12,
+		"nombre":"Chrome"},
+		{"idalternativa":13,
+		"nombre":"Safari"},
+		{"idalternativa":14,
+		"nombre":"Otros"}]}
+
+		paypay=json2.dumps(payload)
+		#print "payloaddddddd"
+		#print paypay
+		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
+		r=requests.get('http://localhost:8000/interactiv/newquest/', params = paypay)#,'usernami' = username)
+
+		#data2 = r.json()
+		print "recepcion:"
+		#print r.content
+		print "recepcion fin"
+	 	data3 =json2.loads(r.content)
+
+		result= data3['resultado']
+
+		response_data['res']= result
+	jsonString = json2.dumps(response_data,indent=4)
+
+	#hacer push! notificacion al celular!!!
+	#datok = jsonString
+	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+
 
 # def observus(request):
 # 	response_data = {}

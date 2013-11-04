@@ -8,6 +8,9 @@ urlpatterns= patterns('djangoapps.event.views',
     url(r'^jsonev2/$','jsonevent2'),
     url(r'^detalle/$','detalle_event'),
     url(r'^topics/$','temas_evento'),
+    #inserts:
+    url(r'^insertev/$','insert_events'),
+    url(r'^insertop/$','insert_topics'),
     #url(r'^new/$','insert_event'),#!!!!!!!!!!!!!!!!!!!!!!!!!!
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
 )

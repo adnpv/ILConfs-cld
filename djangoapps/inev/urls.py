@@ -27,5 +27,7 @@ urlpatterns= patterns('djangoapps.inev.views',
 	url(r'^jsonquestion/$','jsonpreguntos'),
 	url(r'^datel/$','datafrommyserver'),
 	#url(r'^newmquest/$','insert_quests'),
+	url(r'^enviaq/$','enviar_quest_nueva'),
+	url(r'^newquest/$','insert_quests'),
 
 )

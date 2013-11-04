@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     (r'^api/', include(question_resource.urls)),
     (r'^jsoncho/', include(choice_resource.urls)),
     (r'^user/', include('djangoapps.userp.urls')),
+    #url(r'', include('gcm.urls'),
     # Examples:
     # url(r'^$', 'ILConfs.views.home', name='home'),
     # url(r'^ILConfs/', include('ILConfs.foo.urls')),
