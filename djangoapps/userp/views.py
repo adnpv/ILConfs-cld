@@ -51,8 +51,8 @@ def login(request):
 		r=requests.get('http://pietreal.herokuapp.com/user/petic/', params = payload)#,'usernami' = username)
 
 		#data2 = r.json()
-		print "recepcion:"
-		#print r.content
+		print "recepcion: de LOGIIIIIIIIIIINNNNNNNNN"
+		print r.content
 		print "recepcion fin"
 	 	data3 =json2.loads(r.content)
 
