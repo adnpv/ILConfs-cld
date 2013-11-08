@@ -48,7 +48,7 @@ def login(request):
 		payload ={'user': username,'password':password }
 		
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
+		r=requests.get('http://pietreal.herokuapp.com/user/petic/', params = payload)#,'usernami' = username)
 
 		#data2 = r.json()
 		print "recepcion:"

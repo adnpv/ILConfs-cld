@@ -422,7 +422,7 @@ def enviar_quest_nueva(request):
 
 		#data2 = r.json()
 		print "recepcion:"
-		#print r.content
+		print r.content
 		print "recepcion fin"
 	 	data3 =json2.loads(r.content)
 
