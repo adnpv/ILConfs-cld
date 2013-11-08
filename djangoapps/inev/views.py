@@ -15,6 +15,7 @@ from gcm.models import Device
 
 # -*- coding: utf-8 -*-
 #resolv multiple choice
+#ojo 1 url to change
 def answer(request):
 	response_data = {}
 	if request.method == 'GET':
@@ -313,8 +314,6 @@ def jsonpreguntos(request):
 		for questi in Question.objects.filter(topic=topicn):
 			questi.delete() 
 
-		#my_phone = Device.objects.get(name='My phone')
-		#my_phone.send_message('my test message')
 		callback = request.GET.get('callback')
 
 		jsonString = json2.dumps(data,indent=4) #sort_keys='nice',
@@ -395,6 +394,8 @@ def insert_quests(request):
 
 
 def enviar_quest_nueva(request):
+	#url = "http://localhost:8000"
+	url = "http://pietreal.herokuapp.com"
 	response_data = {}
 
 	if request.method == 'GET':
@@ -417,7 +418,7 @@ def enviar_quest_nueva(request):
 		#print "payloaddddddd"
 		#print paypay
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.get('http://localhost:8000/interactiv/newquest/', params = paypay)#,'usernami' = username)
+		r=requests.get('%s/interactiv/newquest/' % url, params = paypay)#,'usernami' = username)
 
 		#data2 = r.json()
 		print "recepcion:"

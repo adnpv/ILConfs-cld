@@ -35,4 +35,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^secret/admin/', include(admin.site.urls)),
+    # basic resources without authentication
+    url(r'', include('gcm.urls')),
 )

@@ -15,6 +15,8 @@ from django.core import serializers
 import requests
 # -*- coding: utf-8 -*-
 #resolv multiple choice
+#ojo: 2 urls to change.
+
 def login2(request):
 	response_data = {}
 	if request.method == 'POST':
@@ -34,6 +36,8 @@ def login2(request):
 
 #@method_decorator(ensure_csrf_cookie)
 def login(request):
+	#url = "http://localhost:8000"
+	url = "http://pietreal.herokuapp.com"
 	response_data = {}
 
 	if request.method == 'GET':
@@ -44,11 +48,11 @@ def login(request):
 		payload ={'user': username,'password':password }
 		
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.get('http://localhost:8000/user/petic/', params = payload)#,'usernami' = username)
+		r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
 
 		#data2 = r.json()
 		print "recepcion:"
-		print r.content
+		#print r.content
 		print "recepcion fin"
 	 	data3 =json2.loads(r.content)
 
@@ -116,7 +120,7 @@ def previo_login(request):
 		if idto == "tokeniko":
 			print "hellokoooooooooooooo"
 			token = django.middleware.csrf.get_token(request)
-			print token
+			#print token
 			response_data['result'] = token
 			#resp = [response_data]
 			# if initial_chon != last_chon :
@@ -156,14 +160,18 @@ def nuevo_evento_user(request):
 		tick = Ticket(user=usuario,ticket_num=codauth, event=evento)
 		tick.save()
 		#enviar gcm!!!! a mobil!
+		#my_phone = Device.objects.get(name='My phone')
+		#my_phone.send_message('my test message')
 
 	eventos['result'] = 'ok'
 	jsonString = json2.dumps(eventos,indent=4)
 	return HttpResponse(jsonString, content_type='application/json')
 
 def send_new_ticke(request):
+	#url = "http://localhost:8000"
+	url ="http://pietreal.herokuapp.com"
 	payload ={'idusuario': 1,'idevento':22, 'codigohabilitacion':1564 }
-	r=requests.get('http://localhost:8000/user/newtic/', params = payload)#,'usernami' = username)
+	r=requests.get('%s/user/newtic/'% url, params = payload)#,'usernami' = username)
 	#data = json2.loads(r.content)
 	#jsonString = json2.dumps(data,indent=4)
 	jsonString = r.content
