@@ -1,5 +1,5 @@
 ﻿from django.http import HttpResponse
-
+from ast import literal_eval as lit
 #from django.template.loader import get_template #ver carpeta templates
 #from django.template import Context #paso datos(grupos)
 	#se envio en el contexto, {{}} se pasara y render estos.
@@ -68,32 +68,44 @@ def jsonevent2(request):
 
 def insert_events(request):
     response_data = {}
-
+    print request.GET.urlencode
+    print "simple get:"
+    print request.GET
     if request.method == 'GET':
+
         #data3 =json2.loads(request)
 
+        mydict = dict(request.GET.iterlists())
+        # print mydict
+        # print "dataaaaaa"
+        for keys,values in mydict.items():
+            data3 = lit(keys)[0]
         
-        idevento = request.GET.get('idevento')
-        nombre= request.GET.get('nombre')# [{'datok'}] (son arreglos y se antepone un [0])
-        start_date = request.GET.get('fechainicio')
+        print data3['nombre']
+        # #print data3['idevento']
+
+
+        idevento = data3['idevento']
+        nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
+        start_date = data3['fechainicio']
         #arrinicio = start_date.split('-',3)
 
-        end_date = request.GET.get('fechafin')
-        start_hour = request.GET.get('horainicio')
-        end_hour = request.GET.get('horafin')
+        end_date = data3['fechafin']
+        start_hour = data3['horainicio']
+        end_hour = data3['horafin']
 
         #??????descripcion = request.GET.get('descripcion')#?????????????
         #start_date = data3['start_date']    #pasar año, mes y dia (armarlo aca)
         #end_date = data3['end_date']
-        lugar = request.GET.get('lugar')
-        latitud = request.GET.get('latitud')
-        longitud = request.GET.get('longitud')
+        lugar = data3['lugar']
+        latitud = data3['latitud']
+        longitud = data3['longitud']
 
-        #destacado = request.GET.get('destacado')
-        #estado = request.GET.get('estado')
+        #destacado = data3['destacado']
+        #estado = data3['estado']
 
-        #organizador = request.GET.get('organizador')# idusuario
-        #likes = request.GET.get('likes')
+        #organizador = data3['organizador')# idusuari]
+        #likes = data3['likes']
 
         descripcion ="evento traido"
         estado=0
@@ -122,22 +134,33 @@ def insert_events(request):
 
 def insert_topics(request):
     response_data = {}
+    print request.GET.urlencode
+    print "simple get:"
+    print request.GET
 
     if request.method == 'GET':
         #data3 =json2.loads(request)
 
-        idevento = request.GET.get('idevento')
-        idtema = request.GET.get('idtema')
-        nombre= request.GET.get('nombre')# [{'datok'}] (son arreglos y se antepone un [0])
-        description = 'temaa'#request.GET.get('descripcion')
-        start_hour = request.GET.get('horainicio')
-        end_hour = request.GET.get('horafin')
+        mydict = dict(request.GET.iterlists())
+        # print mydict
+        # print "dataaaaaa"
+        for keys,values in mydict.items():
+            data3 = lit(keys)[0]
+
+        print data3['nombre']
+
+        idevento = data3['idevento']
+        idtema = data3['idtema']
+        nombre= data3['nombre']     # [{'datok'}] (son arreglos y se antepone un [0]]
+        description = 'temaa'       #data3['descripcion']
+        start_hour = data3['horainicio']
+        end_hour = data3['horafin']
         
         #start_hour = data3['start_hour'] #hora min (armarlo aca)
         #end_hour = data3['end_hour']
 
-        room = "no definida"    #request.GET.get('sala')
-        likes = 3   #request.GET.get('likes')
+        room = "no definida"    #data3['sala']
+        likes = 3   #data3['likes']
         status = 0
         eventu = Event.objects.get(id=idevento)
         #crear usuario segun data obtenida!!!!!!!!!!!!!!!!!

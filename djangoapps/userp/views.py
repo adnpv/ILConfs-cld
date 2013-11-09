@@ -48,7 +48,9 @@ def login(request):
 		payload ={'user': username,'password':password }
 		
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
+		r=requests.post('http://localhost/eventos/index.php/autenticacion/autenticar_participante', data = payload)
+		
+		#r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
 		
 
 		#data2 = r.json()
@@ -64,25 +66,40 @@ def login(request):
 		nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
 		userid = data3['userid']
 		apellido = data3['apellido']
-
+		print nombre
+		print userid
+		print apellido
 
 
 		#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
-		#nuevou = User(id=userid,name=nombre,lastname=apellido)
+		usuario = User(id=userid,name=nombre,lastname=apellido)
+		usuario.save()
 
 		#validar asignacion solo si existe
-		usuario = User.objects.get(id=userid)
+		#usuario = User.objects.get(id=userid)
 
 		eventos = data3['events']
 		#print repr(eventos[1])
+		#mydict = dict(request.GET.iterlists())
+		
+
+
+		# for keys,values in eventos.items():
+		# 	print (keys)
+		# 	print (values)
+		#	#data3 = lit(keys)
+
+
 		for i in range(len(eventos)):#antes 2
-			idevento = eventos[i]['idevent']
+			idevento = eventos[i]['idevento']
+			print idevento
 			evento = Event.objects.get(id=idevento)
 
 			codigoauth = eventos[i]['codauth']
+			print codigoauth
 			#print type(codigoauth)	
 			ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
-			#ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
+			ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
 
 		response_data['nombre']= nombre
 		response_data['apellido']= apellido

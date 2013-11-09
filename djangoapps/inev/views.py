@@ -355,7 +355,7 @@ def jsonpreguntos(request):
 
 
 def datafrommyserver(request):
-	r = requests.get('https://pietreal.herokuapp.com//interactiv/jsonmquest/?id=2')
+	r = requests.get('https://pietreal.herokuapp.com/interactiv/jsonmquest/?id=2')
 	datok=r.content
 	return HttpResponse(datok)
 
@@ -374,9 +374,32 @@ def manual_get_topics():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def insert_quests(request):
 	response_data = {}
-	data3 = {}
+	#data3 = {}
+	# print "lalalaaaaaaaaaaaaaaaaaaaa"
+	# print request.GET.urlencode
+	# print "simple get:"
+	print request.GET
+	print "clear!!!!!!!!!!"
 	if request.method == 'GET':
 		#print json2.loads(request.GET) #.GET['']
 		#print request.GET.getlist('alternativas')
@@ -386,32 +409,38 @@ def insert_quests(request):
 		mydict = dict(request.GET.iterlists())
 		for keys,values in mydict.items():
 			data3 = lit(keys)
-
+		print data3		#arreglo
 		# print "rawwwwwwww"
 	 	#data3 =json2.loads(request.content)
 
-	 	topicid= data3["idtema"]
+	 	topicid= 1#data3[0]["idtema"]
 	 	#topicid= request.GET.get('idtema')
-	 	print topicid
+	 	#print topicid
 		topicu = Topic.objects.get(id=topicid)
 
-		pregid = data3['idpregunta']
-		name= data3['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
-		status= data3['estado']
+		pregid = data3[0]['idpregunta']
+		name= data3[0]['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
+		status= 1#data3['estado']
 
 		pregu = Quest(id= pregid,topic = topicu, name = name, status = status)
 
 		pregu.save()
 		#validar asignacion solo si existe
 		
-
-		opcs = data3['alternativas']
-		# #print repr(eventos[1])
-		for i in range(len(opcs)):#antes 2
-			idopc = opcs[i]['idalternativa']
-			nombreopc = opcs[i]['nombre']
+		for i in range(len(data3)-1):#antes 2
+			ia = i+1
+			idopc = data3[ia]['idalternativa']
+			nombreopc = data3[ia]['nombre']
 			cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
 			cho.save()
+
+		# opcs = data3['alternativas']
+		# # #print repr(eventos[1])
+		# for i in range(len(opcs)):#antes 2
+		# 	idopc = opcs[i]['idalternativa']
+		# 	nombreopc = opcs[i]['nombre']
+		# 	cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
+		# 	cho.save()
 
 		response_data['resultado']= "ok"
 
@@ -423,8 +452,8 @@ def insert_quests(request):
 
 
 def enviar_quest_nueva(request):
-	url = "http://localhost:8000"
-	#url = "http://pietreal.herokuapp.com"
+	#url = "http://localhost:8000"
+	url = "http://pietreal.herokuapp.com"
 	response_data = {}
 
 	if request.method == 'GET':
