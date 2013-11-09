@@ -36,8 +36,10 @@ def login2(request):
 
 #@method_decorator(ensure_csrf_cookie)
 def login(request):
-	url = "http://localhost:8000"
+	#url = "http://localhost:8000"
 	#url = "http://pietreal.herokuapp.com"
+	#url_remote="http://localhost"
+	url_remote="http://pitreal.hostei.com"
 	response_data = {}
 
 	if request.method == 'GET':
@@ -48,7 +50,7 @@ def login(request):
 		payload ={'user': username,'password':password }
 		
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.post('http://localhost/eventos/index.php/autenticacion/autenticar_participante', data = payload)
+		r=requests.post('%s/eventos/index.php/autenticacion/autenticar_participante'% url_remote, data = payload)
 		
 		#r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
 		
@@ -187,8 +189,8 @@ def nuevo_evento_user(request):
 	return HttpResponse(jsonString, content_type='application/json')
 
 def send_new_ticke(request):
-	url = "http://localhost:8000"
-	#url ="http://pietreal.herokuapp.com"
+	#url = "http://localhost:8000"
+	url ="http://pietreal.herokuapp.com"
 	payload ={'idusuario': 1,'idevento':22, 'codigohabilitacion':1564 }
 	r=requests.get('%s/user/newtic/'% url, params = payload)#,'usernami' = username)
 	#data = json2.loads(r.content)

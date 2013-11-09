@@ -451,7 +451,7 @@ def insert_quests(request):
 	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 
-def enviar_quest_nueva(request):
+def enviar_quest_nueva(request):	#de local hacia arribaaaaaa
 	#url = "http://localhost:8000"
 	url = "http://pietreal.herokuapp.com"
 	response_data = {}
