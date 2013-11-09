@@ -7,6 +7,10 @@ urlpatterns= patterns('djangoapps.userp.views',
 	url(r'^events/$','eventos_user'),
 	url(r'^newtic/$','nuevo_evento_user'),
 	url(r'^enviatic/$','send_new_ticke'),
+
+
+	url(r'^validtick/$','valid_ticke'),
+	
 	
 
 

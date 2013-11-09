@@ -26,6 +26,11 @@ class Choice(models.Model):
 		fields =('id','nchoices',)
 		return dict((field, self.__dict__[field])for field in fields) #armando dict, basado en los campos
 			#attrib, value
+	def jsonfetch(self):
+		return {
+			'idalternativa':self.id,
+			'nombre':self.name,
+		}
 	def __unicode__(self):
 		return self.name
 

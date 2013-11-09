@@ -123,30 +123,59 @@ def event(request,event_id=1):
 #SACARLA DE DB LAS PREGUNTAS
 #traer data de php.
 def quest(request):
-	que=request.GET.get('que')
-	q = Quest.objects.get(id=que)
-
-	#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
-	data = [choice.json() for choice in Choice.objects.all().filter(quest=q)]
-	#nice = 'nice' in request.GET
-
-	response_data = {}
+	#que=request.GET.get('que')
+	#q = Quest.objects.get(id=que)
+	preguq = {}
+	datus = []
 	if request.method == 'GET':
-		r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-		data2 = r.json()
-	print data2
-	print "--------------------------------"
-	print data
-		#data2 = json2.load(r.json())
+		topicid=request.GET.get('que')
+		top = Topic.objects.get(id=topicid)
+		q = Quest.objects.get(topic=top, status=1)# de tal tema y habilitada!!
 
-	#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
-	jsonString = json2.dumps(data2,indent=4) #sort_keys='nice',
-	# if que:
-	# 	jsonString = '%s (%s)' %('?', jsonString)
-        #jsonString = '{%s %s}' %('"events":', jsonString)
-	return HttpResponse(jsonString, content_type='application/json')
+		preguq['idpregunta']=q.id
+		preguq['nombre']=q.name
+		preguq['topid']=q.topic.id
+		datus.append(preguq)
+		#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
+		#data = [choice.jsonfetch() for choice in Choice.objects.all().filter(quest=q)]
+		#preguq['quests']= data
+		for choice in Choice.objects.all().filter(quest=q):
+			datus.append(choice.jsonfetch())
+		
+		#nice = 'nice' in request.GET
 
+		# response_data = {}
+		# if request.method == 'GET':
+		# 	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+		# 	data2 = r.json()
+		# print data2
+		# print "--------------------------------"
+		# print data
+			#data2 = json2.load(r.json())
 
+		#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+		jsonString = json2.dumps(datus,indent=4) #sort_keys='nice',
+		# if que:
+		# 	jsonString = '%s (%s)' %('?', jsonString)
+	        #jsonString = '{%s %s}' %('"events":', jsonString)
+		return HttpResponse(jsonString, content_type='application/json')
+
+	eventos = {}
+	if request.method == 'GET':
+		userlog=str(request.GET.get('user'))
+		#OJO!!!!! FALTA VALIDACION
+		usuario = User.objects.get(name=userlog)#ojo username y name es diferente(obiar para simular)
+		eventos['userid']=usuario.id
+		eventos['nombre']=usuario.name
+		eventos['apellido']=usuario.lastname
+    	data = [entrada.json() for entrada in Ticket.objects.filter(user=usuario)]
+    	print "datoko"
+    	eventos['events']= data
+    	print eventos
+    	#codificar la data
+    	jsonString = json2.dumps(eventos,ensure_ascii=False, encoding="utf-8",indent=4)
+
+    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 
 
@@ -189,10 +218,10 @@ def make_question(request):
 		titu=request.GET['titulo']
 		detall=request.GET['detalle']
 		tema_id=request.GET['idtema']
-		#user_id=request.GET['idus']
+		user_id=request.GET['idus']
 		#crear pregunta y guardarla
-		useri = User.objects.get(id=7)	#iduser
-		topici = Topic.objects.get(id=1)  #idtopic   era 3
+		useri = User.objects.get(id=user_id)	#iduser
+		topici = Topic.objects.get(id=tema_id)  #idtopic   era 3
 		preg = Question(name=titu, detail= detall)#, iduser=1, idthema= 1)
 		#nuevo(3):
 		#pregu = preg.save(commit=false)
@@ -394,8 +423,8 @@ def insert_quests(request):
 
 
 def enviar_quest_nueva(request):
-	#url = "http://localhost:8000"
-	url = "http://pietreal.herokuapp.com"
+	url = "http://localhost:8000"
+	#url = "http://pietreal.herokuapp.com"
 	response_data = {}
 
 	if request.method == 'GET':

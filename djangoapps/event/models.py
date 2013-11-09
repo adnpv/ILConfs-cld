@@ -67,6 +67,7 @@ class Topic(models.Model):
 
 	def jsondetalle(self):
 		return {
+			'idev':self.event.id,
 			'idtem': self.id,
 			'name':self.name,
 			'desc':self.description,

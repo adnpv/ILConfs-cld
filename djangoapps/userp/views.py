@@ -36,8 +36,8 @@ def login2(request):
 
 #@method_decorator(ensure_csrf_cookie)
 def login(request):
-	#url = "http://localhost:8000"
-	url = "http://pietreal.herokuapp.com"
+	url = "http://localhost:8000"
+	#url = "http://pietreal.herokuapp.com"
 	response_data = {}
 
 	if request.method == 'GET':
@@ -170,8 +170,8 @@ def nuevo_evento_user(request):
 	return HttpResponse(jsonString, content_type='application/json')
 
 def send_new_ticke(request):
-	#url = "http://localhost:8000"
-	url ="http://pietreal.herokuapp.com"
+	url = "http://localhost:8000"
+	#url ="http://pietreal.herokuapp.com"
 	payload ={'idusuario': 1,'idevento':22, 'codigohabilitacion':1564 }
 	r=requests.get('%s/user/newtic/'% url, params = payload)#,'usernami' = username)
 	#data = json2.loads(r.content)
@@ -179,3 +179,28 @@ def send_new_ticke(request):
 	jsonString = r.content
 	return HttpResponse(jsonString, content_type='application/json')
 
+
+def valid_ticke(request):
+    response_data = {}
+    data = []
+    if request.method == 'GET':
+        evid=int(request.GET.get('idev'))
+        topicid=int(request.GET.get('idtem'))
+        codauth=int(request.GET.get('codau'))
+        userid=int(request.GET.get('userid'))
+        
+        evento = Event.objects.get(id=evid)
+        userh = User.objects.get(id=userid)
+        a= Ticket.objects.filter(user=userh,ticket_num=codauth, event=evento)
+
+        if a.exists():
+        	response_data['result'] = 'Exito'
+        else:
+        	response_data['result'] = 'Error'
+		
+
+    jsonString = json2.dumps(response_data,indent=4)
+    return HttpResponse(jsonString, content_type='application/json')
+
+
+    #user/validtick/?idev=22&codau=1564&userid=1
