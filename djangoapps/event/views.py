@@ -184,3 +184,16 @@ def temas_evento(request):
 
     jsonString = json.dumps(data,indent=4)
     return HttpResponse(jsonString, content_type='application/json')
+
+def detalle_topic(request):
+    eventos = {}
+    data = []
+    if request.method == 'GET':
+        toid=int(request.GET.get('idtopic'))
+        print "TOPICOOOOO"
+        print toid
+        tema = Topic.objects.get(id=toid)
+        data = tema.jsondetalle()
+
+    jsonString = json.dumps(data,indent=4)
+    return HttpResponse(jsonString, content_type='application/json')

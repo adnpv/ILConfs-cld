@@ -60,7 +60,8 @@ class Topic(models.Model):
 
 	def json(self):
 		return {
-			'idev': self.id,
+			'idev': self.event.id,
+			'idtem': self.id,
 			'name':self.name,
 		}
 

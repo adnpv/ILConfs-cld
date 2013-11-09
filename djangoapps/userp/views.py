@@ -48,7 +48,8 @@ def login(request):
 		payload ={'user': username,'password':password }
 		
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
-		r=requests.get('http://pietreal.herokuapp.com/user/petic/', params = payload)#,'usernami' = username)
+		r=requests.get('%s/user/petic/' % url, params = payload)#,'usernami' = username)
+		
 
 		#data2 = r.json()
 		print "recepcion: de LOGIIIIIIIIIIINNNNNNNNN"
@@ -96,6 +97,7 @@ def login(request):
 #local, ya se tiene la parte de evento asignado y su codigo
 	#demo de realizacion de php:
 def peticion(request):
+	print "LLEGUE ACA 1"
 	eventos = {}
 	if request.method == 'GET':
 		userlog=str(request.GET.get('user'))
