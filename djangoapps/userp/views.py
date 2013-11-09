@@ -47,8 +47,8 @@ def login(request):
 		password=request.GET.get('password')
 		print username,password
 	# 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-		payload ={'user': username,'password':password }
-		
+		payload ={'usuario': username,'contrasena':password }
+		#http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante?usuario=amunoz&contrasena=123456
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
 		r=requests.post('%s/eventos/index.php/autenticacion/autenticar_participante'% url_remote, data = payload)
 		
