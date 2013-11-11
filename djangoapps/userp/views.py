@@ -80,7 +80,7 @@ def login(request):
 			apellido = data3['apellido']
 			print nombre
 			print userid
-			print "%s" % apellido
+			
 
 
 			#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
