@@ -89,6 +89,7 @@ def login(request):
 
 			if usuario.count() > 0:
 				print "usuario existente"
+				usuario = User.objects.get(id=userid)
 			else :
 				usuario = User(id=userid,name=nombre,lastname=apellido)
 				usuario.save()
