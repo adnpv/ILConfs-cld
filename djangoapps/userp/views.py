@@ -63,8 +63,8 @@ def login(request):
 		print "recepcion fin"
 		#control de basurita:
 		a = r.content.split('<!--', 1 );
-		b = a[0].split('</div>', 1 );
-		print b[1]
+		#b = a[0].split('</div>', 1 );
+		#print b[1]
 		print "recepcion fin2"
 		contenidu=a[0]
 		print contenidu
@@ -114,12 +114,11 @@ def login(request):
 				evento = Event.objects.get(id=idevento)
 
 				codigoauth = eventos[i]['codauth']
-				# if codigoauth == 'null' {
-				# 	codigoauth = 1111
-				# }
+				if codigoauth == "" :
+					codigoauth = 1111
 				print codigoauth
 				#print type(codigoauth)	
-				tick=Ticket.objects.filter(user=usuario,event=evento,ticket_num=codigoauth)
+				tick=Ticket.objects.filter(user=usuario,event=evento)
 
 				if tick.count() > 0:
 					print "ticket existente"
