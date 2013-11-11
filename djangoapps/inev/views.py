@@ -129,6 +129,8 @@ def quest(request):
 	datus = []
 	if request.method == 'GET':
 		topicid=request.GET.get('que')
+		print "el id requerido es"
+		print topicid
 		top = Topic.objects.get(id=topicid)
 		q = Quest.objects.get(topic=top, status=1)# de tal tema y habilitada!!
 
@@ -413,10 +415,17 @@ def insert_quests(request):
 		# print "rawwwwwwww"
 	 	#data3 =json2.loads(request.content)
 
-	 	topicid= 1#data3[0]["idtema"]
+	 	topicid= data3[0]["idtema"] #error!!!!!!
+	 	#ojo, si en eventos hay uno nuevo q llego, cancelar el anterior!!!
+	 	#para hacer paso de uno a otro!!!
+
 	 	#topicid= request.GET.get('idtema')
 	 	#print topicid
-		topicu = Topic.objects.get(id=topicid)
+	 	topicu = Topic.objects.get(id=topicid)
+	 	questin = Quest.objects.filter(topic = topicu)
+
+	 	if question.count() > 0 : 	#existencia de otros con idtopico
+	 		question.status = 0
 
 		pregid = data3[0]['idpregunta']
 		name= data3[0]['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])

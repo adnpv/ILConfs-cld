@@ -40,13 +40,15 @@ def login(request):
 	#url = "http://pietreal.herokuapp.com"
 	#url_remote="http://localhost"
 	url_remote="http://pitreal.hostei.com"
+	#url_remote="http://pitreal.esy.es";
 	response_data = {}
 
 	if request.method == 'GET':
 		username=request.GET.get('username')
 		password=request.GET.get('password')
+		print "data local:"
 		print username,password
-	# 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+		# 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
 		payload ={'usuario': username,'contrasena':password }
 		#http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante?usuario=amunoz&contrasena=123456
 		#r=requests.post('http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante', data = payload)#,'usernami' = username)
@@ -59,53 +61,78 @@ def login(request):
 		print "recepcion: de LOGIIIIIIIIIIINNNNNNNNN"
 		print r.content
 		print "recepcion fin"
-	 	data3 =json2.loads(r.content)
+		#control de basurita:
+		a = r.content.split('<!--', 1 );
+		b = a[0].split('</div>', 1 );
+		print b[1]
+		print "recepcion fin2"
+		contenidu=a[0]
+		print contenidu
+		if r.content[0] != "<":
+		 	data3 =json2.loads(contenidu)
 
-	 	#nombre= data3[0]['nombres']# [{'datok'}] (son arreglos y se antepone un [0])
-		#userid = data3[0]['idusuario']
-		#apellido = data3[0]['apepad']
-	 	#CAMBIADO ENRIQUE!!!!!!--------------------------------------------------
-		nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
-		userid = data3['userid']
-		apellido = data3['apellido']
-		print nombre
-		print userid
-		print apellido
-
-
-		#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
-		usuario = User(id=userid,name=nombre,lastname=apellido)
-		usuario.save()
-
-		#validar asignacion solo si existe
-		#usuario = User.objects.get(id=userid)
-
-		eventos = data3['events']
-		#print repr(eventos[1])
-		#mydict = dict(request.GET.iterlists())
-		
+		 	#nombre= data3[0]['nombres']# [{'datok'}] (son arreglos y se antepone un [0])
+			#userid = data3[0]['idusuario']
+			#apellido = data3[0]['apepad']
+		 	#CAMBIADO ENRIQUE!!!!!!--------------------------------------------------
+			nombre= data3['nombre']# [{'datok'}] (son arreglos y se antepone un [0])
+			userid = data3['userid']
+			apellido = data3['apellido']
+			print nombre
+			print userid
+			print apellido
 
 
-		# for keys,values in eventos.items():
-		# 	print (keys)
-		# 	print (values)
-		#	#data3 = lit(keys)
+			#crear usuario segun data obtenida!!!!!!!!!!!!!!!!!
+			#if User.objects.get(id=userid).exists()
+			usuario=User.objects.filter(id=userid)
+
+			if usuario.count() > 0:
+				print "usuario existente"
+			else :
+				usuario = User(id=userid,name=nombre,lastname=apellido)
+				usuario.save()
+
+			#validar asignacion solo si existe
+			#usuario = User.objects.get(id=userid)
+
+			eventos = data3['events']
+			#print repr(eventos[1])
+			#mydict = dict(request.GET.iterlists())
+			
 
 
-		for i in range(len(eventos)):#antes 2
-			idevento = eventos[i]['idevento']
-			print idevento
-			evento = Event.objects.get(id=idevento)
+			# for keys,values in eventos.items():
+			# 	print (keys)
+			# 	print (values)
+			#	#data3 = lit(keys)
 
-			codigoauth = eventos[i]['codauth']
-			print codigoauth
-			#print type(codigoauth)	
-			ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
-			ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
 
-		response_data['nombre']= nombre
-		response_data['apellido']= apellido
-		response_data['userid']= userid
+			for i in range(len(eventos)):#antes 2
+				idevento = eventos[i]['idevento']
+				print idevento
+				evento = Event.objects.get(id=idevento)
+
+				codigoauth = eventos[i]['codauth']
+				# if codigoauth == 'null' {
+				# 	codigoauth = 1111
+				# }
+				print codigoauth
+				#print type(codigoauth)	
+				tick=Ticket.objects.filter(user=usuario,event=evento,ticket_num=codigoauth)
+
+				if tick.count() > 0:
+					print "ticket existente"
+				else :
+					ticket = Ticket(user=usuario,event=evento,ticket_num=codigoauth)
+					ticket.save() #guardar tickets pero no aun!!, tambien cargar esto cada vez q ingrese denuevo a la app!! OJO
+
+			response_data['nombre']= nombre
+			response_data['apellido']= apellido
+			response_data['userid']= userid
+			response_data['result']= "Exito"
+		else:
+			response_data['result']= "Error"
 	jsonString = json2.dumps(response_data,indent=4)
 
 	#hacer push! notificacion al celular!!!
@@ -203,20 +230,24 @@ def valid_ticke(request):
     response_data = {}
     data = []
     if request.method == 'GET':
-        evid=int(request.GET.get('idev'))
-        topicid=int(request.GET.get('idtem'))
-        codauth=int(request.GET.get('codau'))
+        evid=int(request.GET.get('idev'))	#idevento!!
+        topicid=int(request.GET.get('idtem'))	#idtema----seria 1
+        codauth=int(request.GET.get('codau'))	#codigo auth
         userid=int(request.GET.get('userid'))
         
-        evento = Event.objects.get(id=evid)
-        userh = User.objects.get(id=userid)
-        a= Ticket.objects.filter(user=userh,ticket_num=codauth, event=evento)
+        if evid != 0 and codauth != 0 :
+	        ev=Event.objects.filter(id=evid);
+	        if ev.count() > 0:
+	        	evento = Event.objects.get(id=evid)
+	        	userh = User.objects.get(id=userid)
+	        	a= Ticket.objects.filter(user=userh,ticket_num=codauth, event=evento)
 
-        if a.exists():
-        	response_data['result'] = 'Exito'
-        else:
-        	response_data['result'] = 'Error'
-		
+		        if a.count() > 0:
+		        	response_data['result'] = 'Exito'
+		        else:
+		        	response_data['result'] = 'Error'
+	        else:
+				response_data['result'] = 'Error'	
 
     jsonString = json2.dumps(response_data,indent=4)
     return HttpResponse(jsonString, content_type='application/json')
