@@ -39,6 +39,7 @@ class Event(models.Model):
 			'org':self.organizer,
 		}
 
+
 	'''class Meta:
 		verbose_name = _('Event')
 		verbose_name_plural = _('Events')'''
@@ -92,7 +93,14 @@ class Topic(models.Model):
 			'h_inicio':str(self.start_hour),
 			'room':self.room,
 		}	
-
+	def jsonexpo(self):
+		return {
+			'temti': self.name,
+			'idesp': self.speaker.id,
+			'name': self.speaker.name,
+			'lname':self.speaker.lastname,
+			'desc': self.speaker.description,
+		}
 	def __unicode__(self):
 		return self.name
 

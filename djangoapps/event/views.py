@@ -259,3 +259,20 @@ def detalle_topic(request):
 
     jsonString = json.dumps(data,indent=4)
     return HttpResponse(jsonString, content_type='application/json')
+
+def spek_tema(request):
+    data = []
+    if request.method == 'GET':
+        topico=request.GET.get('top')
+        topicu = Topic.objects.get(id=topico)
+
+        # idexpositor = topicu.speaker.id
+
+        # spek = Speaker.objects.get(id=idexpositor)
+        data = topicu.jsonexpo()
+        
+        jsonString = json.dumps(data,indent=4)
+        print jsonString
+        # return HttpResponse(jsonString, content_type="text/html; charset=utf-8")#content_type='application/json', charset=utf-8)
+    return HttpResponse(jsonString, content_type='application/json')
+

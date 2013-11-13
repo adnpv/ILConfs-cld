@@ -313,6 +313,19 @@ def manual_get_quests(request):
 		#datok = jsonString
 	return render_to_response('manual_gets.html', {'pregunta':datok,
 													'opc1':opc1,})
+def jsonmopc_All(request):
+	data = []
+	if request.method == 'GET':
+		topico=request.GET.get('top')
+		topicu = Topic.objects.get(id=topico)
+		for quest in Quest.objects.filter(topic=topico):
+			data.append(quest.json())
+
+    	jsonString = json2.dumps(data,indent=4)
+
+    	return HttpResponse(jsonString, content_type="text/html; charset=utf-8")#content_type='application/json', charset=utf-8)
+	return HttpResponse('jsonString', content_type='application/json')
+
 
 def jsonmultipleopc(request):
 
