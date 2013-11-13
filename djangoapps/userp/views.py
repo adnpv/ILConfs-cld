@@ -195,25 +195,57 @@ def eventos_user(request):
 
 
 def nuevo_evento_user(request):
-	# debe recivir data de php y enviar un gcm push al mobil / apn tambien!!!
+	response_data = {}
 
-	eventos = {}
-	data = []
 	if request.method == 'GET':
-		userid=request.GET.get('idusuario')
-		eventid=request.GET.get('idevento')
-		codauth=request.GET.get('codigohabilitacion')
+
+		mydict = dict(request.GET.iterlists())
+		for keys,values in mydict.items():
+			data3 = lit(keys)[0]
+
+		userid = data3['idusuario']
+		eventid = data3['idevento']
+		codauth= data3['codigohabilitacion']
 		usuario = User.objects.get(id=userid)
 		evento = Event.objects.get(id=eventid)
-		tick = Ticket(user=usuario,ticket_num=codauth, event=evento)
-		tick.save()
-		#enviar gcm!!!! a mobil!
-		#my_phone = Device.objects.get(name='My phone')
-		#my_phone.send_message('my test message')
+		texist = Ticket.objects.filter(user=usuario,event=evento)
+		if texist.count()>0:
+			print "existe el ticket"
+		else:
+			tick = Ticket(user=usuario,ticket_num=codauth, event=evento)
+			tick.save()
+			saved = Ticket.objects.filter(user=usuario,event=evento)
+			if saved.count() > 0:
+				response_data['resultado']= "ok"
+			else:
+				response_data['resultado']= "no"
 
-	eventos['result'] = 'ok'
-	jsonString = json2.dumps(eventos,indent=4)
+	jsonString = json2.dumps(response_data,indent=4)
 	return HttpResponse(jsonString, content_type='application/json')
+
+
+# def nuevo_evento_user(request):
+# 	# debe recivir data de php y enviar un gcm push al mobil / apn tambien!!!
+
+# 	eventos = {}
+# 	data = []
+# 	if request.method == 'GET':
+# 		userid=request.GET.get('idusuario')
+# 		eventid=request.GET.get('idevento')
+# 		codauth=request.GET.get('codigohabilitacion')
+# 		usuario = User.objects.get(id=userid)
+# 		evento = Event.objects.get(id=eventid)
+# 		tick = Ticket(user=usuario,ticket_num=codauth, event=evento)
+# 		tick.save()
+# 		#enviar gcm!!!! a mobil!
+# 		#my_phone = Device.objects.get(name='My phone')
+# 		#my_phone.send_message('my test message')
+
+# 	eventos['result'] = 'ok'
+# 	jsonString = json2.dumps(eventos,indent=4)
+# 	return HttpResponse(jsonString, content_type='application/json')
+
+
 
 def send_new_ticke(request):
 	#url = "http://localhost:8000"

@@ -9,7 +9,7 @@ from django.shortcuts import render_to_response
 #from django.views.generic.base import TemplateView # sabe como mostrar un template.
 
 
-from djangoapps.event.models import Event, Topic
+from djangoapps.event.models import Event, Topic, Speaker
 from forms import EventForm, TopicForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -155,7 +155,14 @@ def insert_topics(request):
         description = 'temaa'       #data3['descripcion']
         start_hour = data3['horainicio']
         end_hour = data3['horafin']
-        
+
+        expositorid = data3['idexpositor']
+        if isinstance( expositorid, int ):
+            speak=Speaker.objects.get(id=expositorid)#ya deberia de existir.
+        else:
+            speak=Speaker.objects.get(id=1)#guardar un NO definido!!!
+
+
         #start_hour = data3['start_hour'] #hora min (armarlo aca)
         #end_hour = data3['end_hour']
 
@@ -167,8 +174,10 @@ def insert_topics(request):
         topict = Topic(id=idtema, event= eventu,name = nombre,
                         description = description,
                         start_hour = start_hour,end_hour = end_hour, 
-                        room = room, likes = likes, status = status)
+                        room = room, likes = likes, status = status,
+                        speaker= speak)
         topict.save()
+
         if topict.id != 0 :
             response_data['detalle'] = topict.jsondetalle()
             response_data['resultado']= "ok"
@@ -181,6 +190,36 @@ def insert_topics(request):
 #     #datok = jsonString
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
+
+
+def insert_speaker(request):
+    response_data = {}
+
+    if request.method == 'GET':
+
+        mydict = dict(request.GET.iterlists())
+        for keys,values in mydict.items():
+            data3 = lit(keys)[0]
+
+        idspeak = data3['idexpositor']
+        name = data3['nombre']
+        lname= data3['apellido']     # [{'datok'}] (son arreglos y se antepone un [0]]
+        description = ['descrip']       #data3['descripcion']
+        
+        speak=Speaker.objects.filter(id=expositor)#ya deberia de existir.
+        if speak.count() > 0:
+            print "expositor existe"
+        else:
+            sp = Speaker(id=idspeak,name=name,lastname=lname,description=description)        
+            sp.save()
+
+        if sp.id != 0 :
+            response_data['resultado']= "ok"
+        else:
+            response_data['resultado']= "no"
+        
+    jsonString = json.dumps(response_data,indent=4)
+    return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 
 

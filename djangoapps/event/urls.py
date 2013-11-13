@@ -12,6 +12,7 @@ urlpatterns= patterns('djangoapps.event.views',
     #inserts:
     url(r'^insertev/$','insert_events'),
     url(r'^insertop/$','insert_topics'),
+    url(r'^inserexp/$','insert_speaker'),
     #url(r'^new/$','insert_event'),#!!!!!!!!!!!!!!!!!!!!!!!!!!
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
 )

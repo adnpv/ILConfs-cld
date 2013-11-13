@@ -47,6 +47,23 @@ class Event(models.Model):
 		#para identificar en las partes de definiciones el nombre
 		return self.name
 
+class Speaker(models.Model):
+	name = models.CharField(max_length=50) 
+	lastname = models.CharField(max_length=50)
+	description = models.TextField()
+	
+	def json(self):
+		return {
+			'idesp': self.id,
+			'name': self.name,
+			'lname':self.lastname,
+			'desc': self.description,
+		}
+
+
+	def __unicode__(self):
+		return self.name
+		
 class Topic(models.Model):
 	#idtopic = models.IntegerField()
 	event = models.ForeignKey(Event)
@@ -57,6 +74,7 @@ class Topic(models.Model):
 	room = models.CharField(max_length=300)
 	likes = models.IntegerField()
 	status = models.IntegerField() #no iniciado, iniciado, finalizado, ronda preg.
+	speaker = models.ForeignKey(Speaker)
 
 	def json(self):
 		return {
@@ -77,3 +95,5 @@ class Topic(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+
