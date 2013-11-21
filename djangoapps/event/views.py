@@ -156,7 +156,9 @@ def insert_topics(request):
         start_hour = data3['horainicio']
         end_hour = data3['horafin']
 
-        expositorid = data3['idexpositor']
+
+        #expositorid = data3['idexpositor']
+        expositorid = 1
         if isinstance( expositorid, int ):
             speak=Speaker.objects.get(id=expositorid)#ya deberia de existir.
         else:

@@ -15,7 +15,7 @@ from django.core import serializers
 import requests
 # -*- coding: utf-8 -*-
 #resolv multiple choice
-#ojo: 2 urls to change.
+#ojo: 2 #s to change.
 
 def login2(request):
 	response_data = {}
@@ -36,10 +36,10 @@ def login2(request):
 
 #@method_decorator(ensure_csrf_cookie)
 def login(request):
-	#url = "http://localhost:8000"
+	## = "http://localhost:8000"
 	#url = "http://pietreal.herokuapp.com"
-	#url_remote="http://localhost"
-	url_remote="http://pitreal.hostei.com"
+	url_remote="http://localhost"
+	#url_remote="http://pitreal.hostei.com"
 	#url_remote="http://pitreal.esy.es";
 	response_data = {}
 

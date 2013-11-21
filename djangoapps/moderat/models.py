@@ -36,6 +36,7 @@ class Choice(models.Model):
 
 
 class Lastquest(models.Model):
+	#topic = models.ForeignKey(Topic)#!!!!!!!!!!!!!!!!!!!!!!!!!!
 	name = models.CharField(max_length=500)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
@@ -53,6 +54,11 @@ class LastChoice(models.Model):
 	#nchoice = models.IntegerField() el id se provee al enviar la data!!, para colocarla en dif. opciones, seguridad?
 	nchoices = models.IntegerField()
 	lquest = models.ForeignKey(Lastquest)
+	def jsonfetch(self):
+		return{
+			'idalternativa':self.id,
+			'nombre':self.name,
+		}
 	def json(self):
 		fields =('id','nchoices',)
 		return dict((field, self.__dict__[field])for field in fields) #armando dict, basado en los campos

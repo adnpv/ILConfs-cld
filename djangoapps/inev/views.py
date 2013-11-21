@@ -2,7 +2,7 @@
 from ast import literal_eval as lit
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from djangoapps.moderat.models import Quest, Choice
+from djangoapps.moderat.models import Quest, Choice, Lastquest, LastChoice
 from djangoapps.inev.models import Question
 from djangoapps.event.models import Event, Topic
 from djangoapps.userp.models import User, Ticket
@@ -519,62 +519,64 @@ def enviar_quest_nueva(request):	#de local hacia arribaaaaaa
 
 
 
-# def lastquests(request):
-# 	#que=request.GET.get('que')
-# 	#q = Quest.objects.get(id=que)
-# 	preguq = {}
-# 	datus = []
-# 	if request.method == 'GET':
-# 		topicid=request.GET.get('que')
-# 		print "el id requerido es"
-# 		print topicid
-# 		top = Topic.objects.get(id=topicid)
-# 		q = Quest.objects.get(topic=top, status=1)# de tal tema y habilitada!!
+def lastquests(request):
+	#que=request.GET.get('que')
+	#q = Quest.objects.get(id=que)
+	preguq = {}
+	datus = []
+	if request.method == 'GET':
+		#topicid=request.GET.get('que')		#revision MODEL!!!
+		idpreguf=request.GET.get('qid')
+		print "el id requerido es"
+		#print topicid
+		#top = Topic.objects.get(id=topicid)
+		#q = Lastquest.objects.get(topic=top)# de tal tema y habilitada!!
+		q = Lastquest.objects.get(id=idpreguf)# de tal tema y habilitada!!
+		preguq['idpregunta']=q.id
+		preguq['nombre']=q.name
+		#preguq['topid']=q.topic.id
 
-# 		preguq['idpregunta']=q.id
-# 		preguq['nombre']=q.name
-# 		preguq['topid']=q.topic.id
-# 		datus.append(preguq)
-# 		#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
-# 		#data = [choice.jsonfetch() for choice in Choice.objects.all().filter(quest=q)]
-# 		#preguq['quests']= data
-# 		for choice in Choice.objects.all().filter(quest=q):
-# 			datus.append(choice.jsonfetch())
+		datus.append(preguq)
+		#urlriq="http://172.18.7.9/eventos/jsonparapublico/pregsalpubl.json"
+		#data = [choice.jsonfetch() for choice in Choice.objects.all().filter(quest=q)]
+		#preguq['quests']= data
+		for choice in LastChoice.objects.all().filter(lquest=q):
+			datus.append(choice.jsonfetch())
 		
-# 		#nice = 'nice' in request.GET
+		#nice = 'nice' in request.GET
 
-# 		# response_data = {}
-# 		# if request.method == 'GET':
-# 		# 	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-# 		# 	data2 = r.json()
-# 		# print data2
-# 		# print "--------------------------------"
-# 		# print data
-# 			#data2 = json2.load(r.json())
+		# response_data = {}
+		# if request.method == 'GET':
+		# 	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+		# 	data2 = r.json()
+		# print data2
+		# print "--------------------------------"
+		# print data
+			#data2 = json2.load(r.json())
 
-# 		#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
-# 		jsonString = json2.dumps(datus,indent=4) #sort_keys='nice',
-# 		# if que:
-# 		# 	jsonString = '%s (%s)' %('?', jsonString)
-# 	        #jsonString = '{%s %s}' %('"events":', jsonString)
-# 		return HttpResponse(jsonString, content_type='application/json')
+		#jsonString = json2.dumps(data,sort_keys=nice,indent=4 if nice else None)
+		jsonString = json2.dumps(datus,indent=4) #sort_keys='nice',
+		# if que:
+		# 	jsonString = '%s (%s)' %('?', jsonString)
+	        #jsonString = '{%s %s}' %('"events":', jsonString)
+		return HttpResponse(jsonString, content_type='application/json')
 
-# 	eventos = {}
-# 	if request.method == 'GET':
-# 		userlog=str(request.GET.get('user'))
-# 		#OJO!!!!! FALTA VALIDACION
-# 		usuario = User.objects.get(name=userlog)#ojo username y name es diferente(obiar para simular)
-# 		eventos['userid']=usuario.id
-# 		eventos['nombre']=usuario.name
-# 		eventos['apellido']=usuario.lastname
-#     	data = [entrada.json() for entrada in Ticket.objects.filter(user=usuario)]
-#     	print "datoko"
-#     	eventos['events']= data
-#     	print eventos
-#     	#codificar la data
-#     	jsonString = json2.dumps(eventos,ensure_ascii=False, encoding="utf-8",indent=4)
+	eventos = {}
+	if request.method == 'GET':
+		userlog=str(request.GET.get('user'))
+		#OJO!!!!! FALTA VALIDACION
+		usuario = User.objects.get(name=userlog)#ojo username y name es diferente(obiar para simular)
+		eventos['userid']=usuario.id
+		eventos['nombre']=usuario.name
+		eventos['apellido']=usuario.lastname
+    	data = [entrada.json() for entrada in Ticket.objects.filter(user=usuario)]
+    	print "datoko"
+    	eventos['events']= data
+    	print eventos
+    	#codificar la data
+    	jsonString = json2.dumps(eventos,ensure_ascii=False, encoding="utf-8",indent=4)
 
-#     	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 
 

@@ -35,5 +35,5 @@ urlpatterns= patterns('djangoapps.inev.views',
 	url(r'^allmopc/$','jsonmopc_All'),
 
 
-	#url(r'^jlastq/$','lastquests'),
+	url(r'^jlastq/$','lastquests'),
 )
