@@ -121,6 +121,7 @@ def insert_events(request):
                         longitude = longitud, status = estado,
                         likes = likes, organizer = organizador)
         eventu.save()
+        
         if eventu.id != 0 :
             response_data['resultado']= "ok"
         else:

@@ -1,6 +1,6 @@
 from django.db import models
 
-from djangoapps.event.models import Topic
+from djangoapps.event.models import Topic, Event
 
 class Quest(models.Model):
 	topic = models.ForeignKey(Topic)
@@ -36,7 +36,7 @@ class Choice(models.Model):
 
 
 class Lastquest(models.Model):
-	topic = models.ForeignKey(Topic) #!!!!!!!!!!!!!!!!!!!!!!!!!!
+	event = models.ForeignKey(Event) #!!!!!!!!!!!!!!!!!!!!!!!!!!
 	name = models.CharField(max_length=500)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
