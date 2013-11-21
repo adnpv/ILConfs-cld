@@ -20,7 +20,7 @@ class Quest(models.Model):
 class Choice(models.Model):
 	name = models.CharField(max_length=200)
 	#nchoice = models.IntegerField() el id se provee al enviar la data!!, para colocarla en dif. opciones, seguridad?
-	nchoices = models.IntegerField()
+	nchoices = models.IntegerField(default=0)
 	quest = models.ForeignKey(Quest)
 	def json(self):
 		fields =('id','nchoices',)
