@@ -36,7 +36,7 @@ class Choice(models.Model):
 
 
 class Lastquest(models.Model):
-	#topic = models.ForeignKey(Topic)#!!!!!!!!!!!!!!!!!!!!!!!!!!
+	topic = models.ForeignKey(Topic) #!!!!!!!!!!!!!!!!!!!!!!!!!!
 	name = models.CharField(max_length=500)
 	status = models.IntegerField()
 	#status = models.CharField(max_length=15)
