@@ -561,22 +561,22 @@ def lastquests(request):
 	        #jsonString = '{%s %s}' %('"events":', jsonString)
 		return HttpResponse(jsonString, content_type='application/json')
 
-	eventos = {}
-	if request.method == 'GET':
-		userlog=str(request.GET.get('user'))
-		#OJO!!!!! FALTA VALIDACION
-		usuario = User.objects.get(name=userlog)#ojo username y name es diferente(obiar para simular)
-		eventos['userid']=usuario.id
-		eventos['nombre']=usuario.name
-		eventos['apellido']=usuario.lastname
-    	data = [entrada.json() for entrada in Ticket.objects.filter(user=usuario)]
-    	print "datoko"
-    	eventos['events']= data
-    	print eventos
-    	#codificar la data
-    	jsonString = json2.dumps(eventos,ensure_ascii=False, encoding="utf-8",indent=4)
+# eventos = {}
+# if request.method == 'GET':
+# 	userlog=str(request.GET.get('user'))
+# 	#OJO!!!!! FALTA VALIDACION
+# 	usuario = User.objects.get(name=userlog)#ojo username y name es diferente(obiar para simular)
+# 	eventos['userid']=usuario.id
+# 	eventos['nombre']=usuario.name
+# 	eventos['apellido']=usuario.lastname
+#    	data = [entrada.json() for entrada in Ticket.objects.filter(user=usuario)]
+#    	print "datoko"
+#    	eventos['events']= data
+#    	print eventos
+#    	#codificar la data
+#    	jsonString = json2.dumps(eventos,ensure_ascii=False, encoding="utf-8",indent=4)
 
-    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+#    	return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 
 

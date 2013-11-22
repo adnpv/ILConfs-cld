@@ -10,6 +10,7 @@ from django.shortcuts import render_to_response
 
 
 from djangoapps.event.models import Event, Topic, Speaker
+from djangoapps.moderat.models import Lastquest, LastChoice, FlqSolv
 from forms import EventForm, TopicForm
 from django.http import HttpResponseRedirect
 from django.core.context_processors import csrf
@@ -122,7 +123,7 @@ def insert_events(request):
                         likes = likes, organizer = organizador)
         eventu.save()
         
-        insert_fquest(eventu)
+        #resuki=insert_fquest(eventu)
 
 
         if eventu.id != 0 :
@@ -137,38 +138,14 @@ def insert_events(request):
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
 def insert_fquest(eventu):
-
-    
-    topicid= data3[0]["idtema"] 
-    topicu = Topic.objects.get(id=topicid)
-    questin = Quest.objects.filter(topic = topicu)
-
-    if question.count() > 0 :   #existencia de otros con idtopico
-        question.status = 0
-
-    pregid = data3[0]['idpregunta']
-    name= data3[0]['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
-    status= 1#data3['estado']
-
-    pregu = Quest(id= pregid,topic = topicu, name = name, status = status)
-
-    pregu.save()
-    #validar asignacion solo si existe
-    
-    for i in range(len(data3)-1):#antes 2
-        ia = i+1
-        idopc = data3[ia]['idalternativa']
-        nombreopc = data3[ia]['nombre']
-        cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
-        cho.save()
-
-    response_data['resultado']= "ok"
-
-    jsonString = json2.dumps(response_data,indent=4)
-
-    # #hacer push! notificacion al celular!!!
-    # #datok = jsonString
-    return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+    #Lastquest LastChoice FlqSolv    
+    for i in range(5):
+        i += 1
+        fques = Lastquest.objects.get(id=i)
+        for fchoice in LastChoice.objects.all().filter(lquest=fques):
+            newfqs=FlqSolv(event=eventu, lcho=fchoice, lque=fques, nchoices=0)
+            newfqs.save()
+    return "ok"
 
 
 def insert_topics(request):
