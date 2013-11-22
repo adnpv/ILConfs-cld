@@ -36,9 +36,9 @@ class Choice(models.Model):
 
 
 class Lastquest(models.Model):
-	event = models.ForeignKey(Event) #!!!!!!!!!!!!!!!!!!!!!!!!!!
+	#event = models.ForeignKey(Event) #!!!!!!!!!!!!!!!!!!!!!!!!!!
 	name = models.CharField(max_length=500)
-	status = models.IntegerField()
+	#status = models.IntegerField()
 	#status = models.CharField(max_length=15)
 	def json(self):
 		return {
@@ -66,3 +66,9 @@ class LastChoice(models.Model):
 	def __unicode__(self):
 		return self.name
 	
+class FlqSolv(models.Model):		#n(preguntas) por evento!!!! 19! por evento!
+	event = models.ForeignKey(Event)
+	lcho = models.ForeignKey(LastChoice)
+	lque = models.ForeignKey(Lastquest)
+	nchoices = models.IntegerField()
+    

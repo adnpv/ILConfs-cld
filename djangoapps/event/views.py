@@ -122,6 +122,9 @@ def insert_events(request):
                         likes = likes, organizer = organizador)
         eventu.save()
         
+        insert_fquest(eventu)
+
+
         if eventu.id != 0 :
             response_data['resultado']= "ok"
         else:
@@ -132,6 +135,41 @@ def insert_events(request):
 #     #hacer push! notificacion al celular!!!
 #     #datok = jsonString
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+def insert_fquest(eventu):
+
+    
+    topicid= data3[0]["idtema"] 
+    topicu = Topic.objects.get(id=topicid)
+    questin = Quest.objects.filter(topic = topicu)
+
+    if question.count() > 0 :   #existencia de otros con idtopico
+        question.status = 0
+
+    pregid = data3[0]['idpregunta']
+    name= data3[0]['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
+    status= 1#data3['estado']
+
+    pregu = Quest(id= pregid,topic = topicu, name = name, status = status)
+
+    pregu.save()
+    #validar asignacion solo si existe
+    
+    for i in range(len(data3)-1):#antes 2
+        ia = i+1
+        idopc = data3[ia]['idalternativa']
+        nombreopc = data3[ia]['nombre']
+        cho = Choice(id= idopc,name = nombreopc, nchoices = 0, quest = pregu)
+        cho.save()
+
+    response_data['resultado']= "ok"
+
+    jsonString = json2.dumps(response_data,indent=4)
+
+    # #hacer push! notificacion al celular!!!
+    # #datok = jsonString
+    return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
 
 def insert_topics(request):
     response_data = {}
