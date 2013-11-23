@@ -38,8 +38,8 @@ def login2(request):
 def login(request):
 	## = "http://localhost:8000"
 	#url = "http://pietreal.herokuapp.com"
-	url_remote="http://localhost"
-	#url_remote="http://pitreal.hostei.com"
+	#url_remote="http://localhost"
+	url_remote="http://pitreal.hostei.com"
 	#url_remote="http://pitreal.esy.es";
 	response_data = {}
 
@@ -48,6 +48,7 @@ def login(request):
 		password=request.GET.get('password')
 		print "data local:"
 		print username,password
+		print "fin data local"
 		# 	#r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
 		payload ={'usuario': username,'contrasena':password }
 		#http://pitreal.hostei.com/eventos/index.php/autenticacion/autenticar_participante?usuario=amunoz&contrasena=123456
@@ -65,7 +66,7 @@ def login(request):
 		a = r.content.split('<!--', 1 );
 		#b = a[0].split('</div>', 1 );
 		#print b[1]
-		print "recepcion fin2"
+		print "recepcion fin2--------------------------"
 		contenidu=a[0]
 		print contenidu
 		if r.content[0] != "<":
