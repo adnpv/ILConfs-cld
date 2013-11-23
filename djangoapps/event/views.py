@@ -109,6 +109,7 @@ def insert_events(request):
         #likes = data3['likes']
 
         descripcion ="evento traido"
+        #descripcion = data3['descripcion']
         estado=0
         likes=1
         organizador ="SHO"

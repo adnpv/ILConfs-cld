@@ -437,8 +437,8 @@ def insert_quests(request):
 	 	topicu = Topic.objects.get(id=topicid)
 	 	questin = Quest.objects.filter(topic = topicu)
 
-	 	if question.count() > 0 : 	#existencia de otros con idtopico
-	 		question.status = 0
+	 	if questin.count() > 0 : 	#existencia de otros con idtopico
+	 		questin.status = 0
 
 		pregid = data3[0]['idpregunta']
 		name= data3[0]['nombre'] # [{'datok'}] (son arreglos y se antepone un [0])
