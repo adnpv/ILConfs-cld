@@ -108,8 +108,8 @@ def insert_events(request):
         #organizador = data3['organizador')# idusuari]
         #likes = data3['likes']
 
-        descripcion ="evento traido"
-        #descripcion = data3['descripcion']
+        #descripcion ="evento traido"
+        descripcion = data3['descripcion']
         estado=0
         likes=1
         organizador ="SHO"
@@ -137,6 +137,9 @@ def insert_events(request):
 #     #hacer push! notificacion al celular!!!
 #     #datok = jsonString
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+def mofic_event_status():
+    return "hi"
 
 def insert_fquest(eventu):
     #Lastquest LastChoice FlqSolv    
@@ -169,9 +172,9 @@ def insert_topics(request):
         idevento = data3['idevento']
         idtema = data3['idtema']
         nombre= data3['nombre']     # [{'datok'}] (son arreglos y se antepone un [0]]
-        description = 'temaa'       #data3['descripcion']
-        start_hour = data3['horainicio']
-        end_hour = data3['horafin']
+        description = data3['descripcion']
+        start_hour = "12:00"#data3['horainicio']
+        end_hour = "13:00"#data3['horafin']
 
 
         #expositorid = data3['idexpositor']
