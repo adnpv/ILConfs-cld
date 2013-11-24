@@ -108,7 +108,6 @@ def insert_events(request):
         #organizador = data3['organizador')# idusuari]
         #likes = data3['likes']
 
-        #descripcion ="evento traido"
         descripcion = data3['descripcion']
         estado=0
         likes=1
@@ -124,7 +123,7 @@ def insert_events(request):
                         likes = likes, organizer = organizador)
         eventu.save()
         
-        #resuki=insert_fquest(eventu)
+        resuki=insert_fquest(eventu)
 
 
         if eventu.id != 0 :
@@ -138,8 +137,38 @@ def insert_events(request):
 #     #datok = jsonString
     return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
 
-def mofic_event_status():
-    return "hi"
+def mofic_event_status():#de pendiente a  activo
+
+    response_data = {}
+    print request.GET.urlencode
+    print "simple get:"
+    print request.GET
+    
+    if request.method == 'GET':
+
+        #data3 =json2.loads(request)
+
+        mydict = dict(request.GET.iterlists())
+
+        for keys,values in mydict.items():
+            data3 = lit(keys)[0]
+        
+        idevento= data3['idevento']
+        eventu = Event.objects.get(id=idevento)
+        eventu.status = 1
+        eventu.save()
+
+        if eventu.status != 0 :
+            response_data['resultado']= "ok"
+        else:
+            response_data['resultado']= "no"
+        
+    jsonString = json.dumps(response_data,indent=4)
+
+    return HttpResponse(jsonString, content_type="application/json; charset=utf-8")
+
+
+
 
 def insert_fquest(eventu):
     #Lastquest LastChoice FlqSolv    

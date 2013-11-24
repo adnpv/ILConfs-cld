@@ -15,6 +15,8 @@ urlpatterns= patterns('djangoapps.event.views',
     url(r'^inserexp/$','insert_speaker'),
 
     url(r'^verexpositor/$','spek_tema'),
+    url(r'^activev/$','mofic_event_status'),
+    
     #url(r'^new/$','insert_event'),#!!!!!!!!!!!!!!!!!!!!!!!!!!
 	#url(r'^language/(?P<language>[a-z\-]+)/$','event.views.language'),
 )

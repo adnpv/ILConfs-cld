@@ -71,4 +71,6 @@ class FlqSolv(models.Model):		#n(preguntas) por evento!!!! 19! por evento!
 	lcho = models.ForeignKey(LastChoice)
 	lque = models.ForeignKey(Lastquest)
 	nchoices = models.IntegerField()
-    
+	
+	def __unicode__(self):
+		return "%s,-- %s, OPC: %s"%(self.event.name, self.lque.id, self.lcho.name)

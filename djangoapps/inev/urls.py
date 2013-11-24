@@ -36,4 +36,5 @@ urlpatterns= patterns('djangoapps.inev.views',
 
 
 	url(r'^jlastq/$','lastquests'),
+	url(r'^resolvf/$','answerf'),
 )

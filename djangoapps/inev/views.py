@@ -2,7 +2,7 @@
 from ast import literal_eval as lit
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from djangoapps.moderat.models import Quest, Choice, Lastquest, LastChoice
+from djangoapps.moderat.models import Quest, Choice, Lastquest, LastChoice, FlqSolv
 from djangoapps.inev.models import Question
 from djangoapps.event.models import Event, Topic
 from djangoapps.userp.models import User, Ticket
@@ -33,6 +33,65 @@ def answer(request):
 			#ingresar valor
 	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
 
+
+def answerf(request):
+	response_data = {}
+	if request.method == 'GET':
+
+
+		ev_id = request.GET['evnf']
+		question_id=request.GET['fquest']
+		choid=request.GET['fchoice']
+
+
+		n= choid.split('-', 1 );
+		ch= n[1]
+		print ch
+
+
+		ev = Event.objects.get(id=ev_id)
+		fques = Lastquest.objects.get(id=question_id)
+		fcho = LastChoice.objects.get(id=ch)
+
+
+		fq=FlqSolv.objects.filter(event=ev,lcho=fcho, lque=fques)
+
+		
+		
+		#valcheck = FlqSolv.objects.filter(id=chu)
+		if fq.count() > 0:
+			response_data=almacenar2(ev,fcho,fques)
+		else:
+			print "no data causa"
+		# 	loadnewdata()
+		# 	#ingresar valor
+	return HttpResponse(json2.dumps(response_data), mimetype="application/json")
+
+def almacenar2(ev,fcho,fques):
+	response_data = {}
+	cho = FlqSolv.objects.get(event=ev,lcho=fcho, lque=fques)#Choice.objects.get(id=valu)#tambn quest ", quest=q"
+	initial_chon = cho.nchoices
+
+	cho.nchoices += 1
+	cho.save()
+
+	generalcho = LastChoice.objects.get(id=fcho.id)#Choice.objects.get(id=valu)#tambn quest ", quest=q"
+	generalcho.nchoices += 1
+	generalcho.save()
+
+
+
+
+	last_chon = cho.nchoices
+	print "DONE"
+	if initial_chon != last_chon :
+		response_data['result'] = 'Exito'
+		response_data['message'] = 'Gracias por Participar'
+	else:
+		response_data['result'] = 'Error'
+		response_data['message'] = 'Su Votacion no se conto'
+	return response_data
+
 #funcion para las respuestas.
 def almacenar(valu):
 	response_data = {}
@@ -50,23 +109,25 @@ def almacenar(valu):
 		response_data['message'] = 'Su Votacion no se conto'
 	return response_data
 
-#funcion actualizar db segun json..... a eliminar!!
-def loadnewdata():
-	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
-	data = r.json()
-	i=0
-	opcion = {}
-	for d in data:
 
-		if i == 0:
-			pregunta= d["nombre"]
-			idpreg= d["idpregunta"]
-			#crear pregunta y guardarla
-			preg = Quest(name=pregunta, id= idpreg, status=1)
-			preg.save()
-		else:
-			key = str(d["idalternativa"])
-			opcion[key]=d["nombre"]
+
+#funcion actualizar db segun json..... a eliminar!!
+# def loadnewdata():
+# 	r=requests.get('http://pitreal.hostei.com/eventos/jsonparapublico/pregsalpubl.json')
+# 	data = r.json()
+# 	i=0
+# 	opcion = {}
+# 	for d in data:
+
+# 		if i == 0:
+# 			pregunta= d["nombre"]
+# 			idpreg= d["idpregunta"]
+# 			#crear pregunta y guardarla
+# 			preg = Quest(name=pregunta, id= idpreg, status=1)
+# 			preg.save()
+# 		else:
+# 			key = str(d["idalternativa"])
+# 			opcion[key]=d["nombre"]
 
 
 

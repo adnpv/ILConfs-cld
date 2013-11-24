@@ -38,8 +38,8 @@ def login2(request):
 def login(request):
 	## = "http://localhost:8000"
 	#url = "http://pietreal.herokuapp.com"
-	#url_remote="http://localhost"
-	url_remote="http://pitreal.hostei.com"
+	url_remote="http://localhost"
+	#url_remote="http://pitreal.hostei.com"
 	#url_remote="http://pitreal.esy.es";
 	response_data = {}
 
