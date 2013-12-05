@@ -393,6 +393,8 @@ def jsonmultipleopc(request):
 	if request.method == 'GET':
 		idquest=request.GET.get('id')
 		topico=request.GET.get('top')
+		print "el id de tema es:"
+		print topico
 		topicu = Topic.objects.get(id=topico)
 
 		questi = Quest.objects.get(id=idquest,topic=topicu)
